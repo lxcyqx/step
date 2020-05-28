@@ -1,6 +1,6 @@
-This directory is where you'll write all of your code!
+Visite the site here: https://lucyqu-step-2020.ue.r.appspot.com
 
-By default it contains a barebones web app. To run a local server, execute this
+To run a local server, execute this
 command:
 
 ```bash
