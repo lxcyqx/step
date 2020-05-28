@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" href="images/logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lucy Qu - Iterative Design</title>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="index.html">Lucy Qu</a>
+      </div>
+
+      <ul class="nav-links white">
+        <li>
+          <a href="index.html">Projects</a>
+        </li>
+        <li>
+          <a href="other.html">Other</a>
+        </li>
+        <li>
+            <a href="Resume.pdf" target="blank">Resume</a>
+          </li>
+        <li>
+          <a href="about.html">About</a>
+        </li>
+      </ul>
+
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
+    <div class="outer-container">
+      <div class="title">
+        Iterative Design and User Testing: 412 Food Rescue
+      </div>
+      <img
+        class="large-image"
+        src="images/projects/cover/iterative-cover.gif"
+        alt="iterative design cover image"
+      />
+      <div class="container">
+        <div class="subtitle iterative">Context</div>
+        <div class="body-text">
+          This project was made for CSCI 1300: User Interfaces and User
+          Experiences, a class at Brown University taught by
+          <a href="https://jeffhuang.com/" target="_blank">Jeff Huang</a>. Our
+          goal was to choose a startup and based off of only a short summary of
+          the goals of the startup, we had to design an interface and perform
+          user testing.
+        </div>
+        <div class="body-text">
+          My teammates were
+          <a href="https://www.linkedin.com/in/mirandamo/" target="_blank"
+            >Miranda Mo</a
+          >,
+          <a href="https://www.linkedin.com/in/jen-he-1001/" target="_blank"
+            >Jennifer He</a
+          >, and
+          <a href="https://www.linkedin.com/in/milanca/" target="_blank"
+            >Milanca Wang</a
+          >
+        </div>
+        <br />
+        <div class="subtitle">
+          412 Food Rescue
+        </div>
+        <div class="body-text">
+          We were inspired to design a mobile app for 412 Food Rescue, a
+          start-up that instantaneously redistributes surplus food from
+          retailers to food banks. Instead of making a website, we chose to
+          create a mobile app because it would make it easier for restaurants to
+          take photos of leftover food and for volunteers to navigate while
+          driving.
+        </div>
+
+        <div class="body-text">
+          We started brainstorming our ideas for the design based off of a blurb
+          in an article that was written about the startup on Carnegie Mellon
+          University’s website:
+        </div>
+
+        <div class="body-text">
+          “Co-founded by Leah Lizarondo, 412 Food Rescue partners with food
+          retailers and other suppliers to pick up their healthy surplus food
+          and deliver it to community nonprofit organizations, where it is
+          directed to individuals and families experiencing food insecurity.”
+        </div>
+
+        <br />
+        <div class="subtitle">
+          Pre-Design Questions
+        </div>
+
+        <div class="body-text">
+          Before starting the design process, we considered how our app might
+          affect various groups of people and addressed the following questions.
+        </div>
+        <br />
+        <div class="body-text bold">
+          Who is directly affected by the interface?
+        </div>
+
+        <div class="body-text">
+          People directly impacted include the restaurants and organizations
+          that want to donate leftover food, the volunteers, the people who
+          receive food from food banks, and the people working at the food
+          banks.
+        </div>
+        <br />
+        <div class="body-text bold">
+          Who is indirectly affected by the interface?
+        </div>
+
+        <div class="body-text">
+          People indirectly impacted are garbage collectors who might be laid
+          off due to less need to pick up trash. Another group is restaurant
+          customers because they are encouraged to visit stores that advertise
+          itself as zero waste with 412 Food Rescue rather than non-green
+          stores.
+        </div>
+        <br />
+        <div class="body-text bold">
+          How are these mentioned groups affected by the interface?
+        </div>
+
+        <div class="body-text">
+          Restaurants can now efficiently distribute food to shelters through
+          volunteers and reduce waste. However, food banks will have an influx
+          of donations, which might negatively affect the workflow of employees
+          there. Nevertheless, the increase in food can improve the quality of
+          life for those who face food insecurity.
+        </div>
+        <br />
+        <div class="body-text bold">
+          What are the ethical concerns?
+        </div>
+
+        <div class="body-text">
+          The emphasis on immediate delivery neglects the negative consequences
+          of transportation’s gas emissions. It is difficult to balance
+          eco-friendly transportation while maintaining the quality of the food
+          (volunteers can choose to ride scooters but that might cause bruises
+          in food).
+        </div>
+        <br />
+        <div class="subtitle">
+          User Flow and Low Fidelity Wireframes
+        </div>
+        <div class="body-text">
+          To begin, we mapped out the user journey of three groups of people -
+          food retailers, volunteers, food banks - and integrated the flow in
+          our wireframes.
+        </div>
+
+        <div class="body-text bold">
+          Food Providers
+        </div>
+
+        <div class="body-text">
+          Food retailers will post their leftover food on the app, and be
+          notified when a volunteer picks it up. After the volunteer picks up
+          the food, retailers confirm the pickup.
+        </div>
+        <br />
+      </div>
+    </div>
+    <img
+      class="body-image"
+      src="images/projects/iterative/food_providers.jpg"
+      alt="food proviers low fidelity mockup"
+    />
+    <div class="outer-container">
+      <div class="container">
+        <div class="body-text bold">
+          Volunteers
+        </div>
+        <div class="body-text">
+          Volunteers will claim tasks and confirm their delivery
+        </div>
+      </div>
+    </div>
+
+    <img
+      class="body-image"
+      src="images/projects/iterative/volunteer.jpg"
+      alt="volunteer low fidelity mockup"
+    />
+
+    <div class="outer-container">
+      <div class="container">
+        <div class="body-text bold">
+          Food Banks
+        </div>
+        <div class="body-text">
+          Food banks will be notified when a volunteer is delivering food to
+          them. They will confirm the delivery once the food is received.
+        </div>
+      </div>
+    </div>
+
+    <img
+      class="body-image"
+      src="images/projects/iterative/food_pantry.jpg"
+      alt="food pantry low fidelity mockup"
+    />
+
+    <div class="outer-container">
+      <div class="container">
+        <div class="subtitle">
+          High Fidelity Prototypes
+        </div>
+      </div>
+
+      <img
+        class="body-image"
+        src="images/projects/iterative/diagonal.gif"
+        alt="high fidelity mockup"
+      />
+
+      <div class="container">
+        <!-- <div class="body-text">
+          Access the high-fidelity prototype
+          <a
+            href="https://www.figma.com/proto/8jiw4VUGCvsJkuVWe9NSKX/Iterative%3A-Hi-fi-prototypes?node-id=0%3A1&scaling=scale-down"
+            target="_blank"
+            >here</a
+          >.
+        </div> -->
+
+        <div class="body-text bold">Changes from Wireframes</div>
+        <div class="body-text">
+          From the wireframes, we modified the UI to improve usability.
+          <ul>
+            <li>
+              Added a page that lists information about the delivery such as the
+              addresses of pickup and drop-off after the volunteer selects their
+              task.
+            </li>
+          </ul>
+          <ul>
+            <li>
+              On the map screen, we dedicated it to location based navigation
+              and minimized the size of the “from” and “to” field to place
+              emphasis on the map.
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Eliminated the duplicated delivery information that is already
+              provided on the Details page and Dashboard.
+            </li>
+          </ul>
+        </div>
+
+        <div class="body-text bold">
+          Final Changes from In-class Critique
+        </div>
+
+        <div class="body-text">
+          For the interactive prototype, we decided to focus on the volunteer’s
+          user flow because food delivery is the main focus of the startup.
+          After presenting our high-fidelity prototype of the volunteer user
+          flow to the class, we noticed that our main problems include
+          legibility and clarity of task, which can interfere with the
+          efficiency of the volunteer. Therefore, we resolved these problems as
+          follows
+
+          <ul>
+            <li>
+              Darkened the body text and bolded fonts
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Added duration of drive to task information page
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Removed the date and moved the profile icon there for easy access
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Allow volunteer to interactively click the phone or message button
+              to contact the store/food bank
+            </li>
+          </ul>
+          <ul>
+            <li>
+              On map screen, added immediate directions at the top and added a
+              “End” button for the volunteer to exit the trip.
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              Added congratulatory message at the end of delivery
+            </li>
+          </ul>
+        </div>
+        <br />
+        <div class="body-text">
+          Here are examples of how we took these critiques and implemented
+          changes to some of our screens.
+        </div>
+      </div>
+      <img
+        class="body-image"
+        src="images/projects/iterative/before-and-after.png"
+        alt="mockup iteration"
+      />
+
+      <div class="container">
+        <div class="videowrapper">
+            <iframe
+            style="border: none;"
+            width="800"
+            height="450"
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F8jiw4VUGCvsJkuVWe9NSKX%2FIterative-Hi-fi-prototypes%3Fnode-id%3D66%253A23%26scaling%3Dscale-down"
+            allowfullscreen
+          ></iframe>
+        </div>
+        
+        <br />
+        <div class="subtitle">
+          Final Visual Design
+        </div>
+        <div class="body-text">
+          Below, we included some of the main screens for each of the three
+          flows (food providers, volunteers, and food banks).
+        </div>
+      </div>
+
+      <img
+        class="body-image"
+        src="images/projects/iterative/food_supplier.gif"
+        alt="food supplier high fidelity mockup"
+      />
+
+      <img
+        class="body-image"
+        src="images/projects/iterative/volunteer.gif"
+        alt="volunteer high fidelity mockup"
+      />
+
+      <img
+        class="body-image"
+        src="images/projects/iterative/ngo.gif"
+        alt="ngo high fidelity mockup"
+      />
+
+      <div class="container">
+        <br />
+        <div class="subtitle">
+          User Testing
+        </div>
+        <div class="body-text">
+          We submitted our prototype to UserTesting, a service that allows UX
+          researchers to test the interface, indicating the following task and
+          scenario. We had three user testers: Samueltom, Ibe, and Hksvij.
+        </div>
+        <br />
+        <div class="body-text bold">Hypothesis</div>
+        <div class="body-text">
+          The minimalistic and one-directional design of this app makes
+          navigation user-friendly and therefore will allow the users to
+          complete the tasks with few distractions.
+        </div>
+        <br />
+        <div class="body-text bold">Selected Task</div>
+        <div class="body-text">
+          Successfully pickup and deliver food from a restaurant to a food bank
+        </div>
+        <br />
+        <div class="body-text bold">Subtasks</div>
+        <div class="body-text">
+          Navigate to the dashboard page and in your own words, describe what
+          you think you can do on this page.
+        </div>
+
+        <div class="body-text">
+          View your profile page to see your achievements. Is there anything on
+          this page that you do not understand or know how to use?
+        </div>
+        <br />
+        <div class="body-text bold">Scenario</div>
+        <div class="body-text">
+          You have been participating as a volunteer for 412 Food Rescue for the
+          past 6 months. You would like to increase your engagement with the
+          community by completing more deliveries each month. Today you have a
+          few hours free in the afternoon and want to make some food deliveries
+          from nearby restaurants to food banks. You will use the 412 Food
+          Rescue app to select a delivery you want to make, pick up the food
+          from the listed restaurant/store, and then deliver that food to the
+          listed food bank/homeless shelter.
+        </div>
+        <br />
+        <div class="subtitle">
+          Quantitative Metrics
+        </div>
+        <img
+          class="body-image"
+          src="images/projects/iterative/task1.jpg"
+          alt="user testing task 1 metrics"
+        />
+        <img
+          class="body-image"
+          src="images/projects/iterative/task2.jpg"
+          alt="user testing task 2 metrics"
+        />
+        <img
+          class="body-image"
+          src="images/projects/iterative/task3.jpg"
+          alt="user testing task 2 metrics"
+        />
+
+        <div class="subtitle">
+          Qualitative Analysis
+        </div>
+        <div class="body-text bold">Error Type</div>
+        <div class="body-text">
+          On average, all three users commented that the navigation is
+          intuitive, as supported by a complete rate of 100%. However, Samueltom
+          made a planning error and assumed the Sign-In page was the Dashboard,
+          therefore she described the wrong screen when asked to describe the
+          functionality of the Dashboard. Her mental model of logging in was not
+          the same as that of the prototype (where she assumed she can log in
+          with the Google icon, so she did not click the usual Sign-in button),
+          which resulted in her error.
+        </div>
+        <br />
+        <div class="body-text bold">User Satisfaction</div>
+        <div class="body-text">
+          Nevertheless, our low time on task averages support that the users are
+          generally satisfied by the app’s simplicity, with Hksvij saying
+          “Nothing is confusing.” Moreover, Samueltom mentioned that seeing her
+          achievements at the end of delivery makes her feel an “adrenaline
+          rush,” and Ibe noted that her accomplishment metrics keeps her
+          engaged.
+        </div>
+        <div class="body-text">
+          Overall it seems like our hypothesis was correct because our users
+          were able to successfully use the app to make a delivery in about 2:45
+          minutes which is very little time. When viewing the recorded videos on
+          UserTesting, we can see that users spent the most time choosing
+          between different food delivery posts and they navigated through the
+          other pages fairly quickly. Therefore we can accept our hypothesis
+          because users were able to make a delivery without getting distracted.
+        </div>
+        <br />
+        <div class="body-text bold">Potential interface changes</div>
+        <div class="body-text">
+          Ibe suggested making the profile page more descriptive by adding the
+          color and model of the volunteer’s car, the approximate location for
+          which they can deliver food, and the volunteer’s cell phone number. We
+          can also add additional information on the confirm delivery and pickup
+          pages to increase accessibility for users with disabilities. For deaf
+          users, we can add a note informing restaurants that they should text
+          the volunteer instead of calling them. Another user also suggested
+          that we let volunteers schedule deliveries and pickups a few days in
+          advance so they can plan out their week ahead of time.
+        </div>
+        <br />
+        <div class="body-text bold">UserTesting Experience</div>
+        <div class="body-text">
+          A challenge that we ran into during our UserTesting sessions was that
+          we didn’t expect the user computer’s lag time to influence their
+          interaction with the prototype. One user was confused when they
+          clicked on a button and the next page did not appear due to the lag
+          time of their computer. Another user tried to sign in using the
+          Facebook button but couldn’t because we did not think that was a
+          necessary screen to have for our prototype. In this case, we should
+          have told users that they should sign in as if they already had an
+          account instead of signing up as a new user. Overall, the users were
+          able to follow our instructions very well. When we asked users to
+          navigate to the profile page, they immediately clicked on the profile
+          icon and understood all the information on the page.
+        </div>
+
+        <br />
+        <div class="subtitle">
+          Conclusion
+        </div>
+        <div class="body-text">
+          For this assignment, we were able to come up with a new design for an
+          app simply based off of a description about a startup. Without looking
+          at their existing website and app, we brainstormed how we thought the
+          app should be laid out, therefore implementing user flow for the three
+          types of users. Throughout the assignment, we made several changes
+          from our low-fidelity mockups to the high-fidelity mockups and then
+          further changes after the in-class critique. Over each iteration, we
+          felt that we were able to make the app more user friendly and
+          increased learnability and memorability. This certainly proved to be
+          the case, as our testers were able to complete the given tasks with
+          minimal confusion. If we were to build onto this project, we would add
+          functionality to more of the buttons that we had included, such as the
+          edit settings icon and the buttons on the sign in page.
+        </div>
+      </div>
+      <br />
+      <div class="container">
+          <hr/>
+      </div>
+
+      <br />
+      <br>
+      <div class="body-text bold centered">
+        Other Projects
+      </div>
+      <div class="grid-container">
+          <div class="grid-small">
+            <div class="project">
+              <div class="project-image-container">
+                <a href="redesign.html">
+                  <img
+                    src="images/projects/cover/redesign-cover-gray.gif"
+                    alt="redesign cover image"
+                  />
+                  <div class="overlay redesign">
+                    <div class="project-title-small dark">
+                      Book Depository Redesign
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+    
+            <div class="project">
+              <div class="project-image-container">
+                <a href="eyetracking.html">
+                  <img
+                    src="images/projects/cover/eyetracking-cover.jpg"
+                    alt="eyetracking cover image"
+                  />
+                  <div class="overlay eyetracking">
+                    <div class="project-title-small">A/B Testing and Eye Tracking</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+      <br />
+      <br />
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <div class="icons">
+      <a href="https://www.linkedin.com/in/lucyqu/" target="_blank">
+        <img class="icon" src="images/linkedin.png" />
+      </a>
+      <a href="mailto:lucy_qu@brown.edu" target="_blank">
+        <img class="icon" src="images/email.png" />
+      </a>
+      <a href="https://github.com/lxcyqx" target="_blank">
+        <img class="icon" src="images/github.png" />
+      </a>
+    </div>
+    <footer class="footer">Made by Lucy Qu © 2020</footer>
+    <br />
+
+    <script src="app.js"></script>
+  </body>
+</html>
