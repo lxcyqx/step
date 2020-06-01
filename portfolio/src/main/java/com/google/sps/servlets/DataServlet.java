@@ -29,6 +29,7 @@ public class DataServlet extends HttpServlet {
   
     private List<String> comments;
 
+    /** Add comments to Arraylist*/
     @Override
     public void init() {
         comments = new ArrayList<String>();
@@ -40,40 +41,13 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String json = convertToJsonUsingGson(this.comments);
+
+        //Send JSON as response
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }
 
-    // private String convertToJson(List<String> comments){
-    //     String json = "{";
-    //     // for (int i = 0; i < messages.size(); i++){
-    //     //     json += "\"" + messages.get(i) + "\"";
-    //     //     json+=
-    //     // }
-    //     json += "\"comments\": [";
-
-    //     json += "{";
-    //     json += "\"comment\": "
-    //     json += "\"" + comments.get(0) + "\"";
-    //     json += "}";
-    //     json += ", ";
-
-    //     json += "{";
-    //     json += "\"comment\": "
-    //     json += "\"" + comments.get(1) + "\"";
-    //     json += "}";
-    //     json += ", ";
-
-    //     json += "{";
-    //     json += "\"comment\": "
-    //     json += "\"" + comments.get(2) + "\"";
-    //     json += "}";
-
-    //     json += "]";
-    //     json += "}"
-    //     return json;
-    // }
-
+    /** Convert Arraylist to JSON using GSON library */
     private String convertToJsonUsingGson(List<String> comments){
         Gson gson = new Gson();
         String json = gson.toJson(comments);
