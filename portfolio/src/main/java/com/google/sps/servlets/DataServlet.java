@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
         int numComments = this.getNumComments(request);
         List<Entity> limitedComments;
-        //if user did not choose All option
+        //if user did not choose All option, set limit to number selected
         if (numComments != 0){
             limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
         } else {

@@ -163,13 +163,12 @@
     <br />
 
     <label for="comments">Number of comments:</label>
-    <select name="num-comments" id="num-comments">
+    <select onchange="getComments()" name="num-comments" id="num-comments">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="All">All</option>
     </select>
-    <button onclick="getComments()">Apply options</button>
     <br><br>
 
     <div id="video-comments"></div>
