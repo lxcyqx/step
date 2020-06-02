@@ -33,9 +33,6 @@ public class DataServlet extends HttpServlet {
     @Override
     public void init() {
         comments = new ArrayList<String>();
-        comments.add("Cool videos");
-        comments.add("I miss Cancun!");
-        comments.add("Very nostalgic");
     }
 
     @Override
