@@ -46,9 +46,4 @@ public class DataServlet extends HttpServlet {
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }
-
-    /** Convert Arraylist to JSON using GSON library */
-    private String convertToJsonUsingGson(List<String> comments){
-        return new Gson().toJson(comments);
-    }
 }
