@@ -10,9 +10,9 @@ function getComments(){
     fetch('/data').then(response => response.json()).then((messages) => {
         const commentElement = document.getElementById('video-comments');
         commentElement.innerHTML = '';
-        commentElement.appendChild(createListElement(messages[0]));
-        commentElement.appendChild(createListElement(messages[1]));
-        commentElement.appendChild(createListElement(messages[2]));
+        for (i = 0; i < messages.length; i++){
+            commentElement.appendChild(createListElement(messages[i]));
+        }
     });
 }
 
