@@ -26,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
@@ -45,9 +46,9 @@ public class DataServlet extends HttpServlet {
         Query query = new Query("Comment");
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
-
+        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(3));
         List<String> commentsList = new ArrayList<String>();
-        for (Entity entity : results.asIterable()){
+        for (Entity entity : limitedComments){
             String text = (String) entity.getProperty("text");
             commentsList.add(text);
         }
@@ -78,4 +79,8 @@ public class DataServlet extends HttpServlet {
         //redirect to HTML page
         response.sendRedirect("/videos.html");
     }
+
+    // private int getNumComments(HttpServletRequest request){
+    //     return request.getParameter("n-comments");
+    // }
 }
