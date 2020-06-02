@@ -22,6 +22,7 @@ import com.google.appengine.api.datastore.Query;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Integer;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,17 @@ public class DataServlet extends HttpServlet {
         Query query = new Query("Comment");
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
-        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(3));
+        int numComments = this.getNumComments(request);
+        List<Entity> limitedComments;
+        //if user did not choose All option
+        if (numComments != 0){
+            limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
+        } else {
+            //if user chose All option
+            limitedComments = results.asList(FetchOptions.Builder.withLimit(Integer.MAX_VALUE));
+        }
+        
+        //add entity to list of comments
         List<String> commentsList = new ArrayList<String>();
         for (Entity entity : limitedComments){
             String text = (String) entity.getProperty("text");
@@ -80,7 +91,22 @@ public class DataServlet extends HttpServlet {
         response.sendRedirect("/videos.html");
     }
 
-    // private int getNumComments(HttpServletRequest request){
-    //     return request.getParameter("n-comments");
-    // }
+    /** 
+    * Get number of comments user wants to display.
+    *
+    * @param HTTP request
+    * @return number of comments to be displayed
+    */
+    private int getNumComments(HttpServletRequest request){
+        String numCommentsString = request.getParameter("num");
+        if (numCommentsString.equals("5")){
+            return 5;
+        } else if (numCommentsString.equals("10")){
+            return 10;
+        } else if (numCommentsString.equals("20")){
+            return 20;
+        } else {
+            return 0;
+        }
+    }
 }
