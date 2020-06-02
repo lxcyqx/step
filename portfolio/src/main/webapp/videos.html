@@ -3,13 +3,14 @@
   <head>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Lucy Qu - Videos</title>
   </head>
 
-  <body>
+  <body onload="getComments()">
     <nav>
       <div class="logo">
         <a href="index.html">Lucy Qu</a>
@@ -58,8 +59,8 @@
             ></iframe>
           </center>
         </div>
-        >
-
+        <br />
+        <br />
         <div class="videowrapper">
           <center>
             <iframe
@@ -158,6 +159,18 @@
         </div>
       </div>
     </div>
+
+    <br />
+
+    <div id="video-comments"></div>
+    
+    <form action="/data" method="POST">
+      <p>Leave a Comment:</p>
+      <input type="text" name="comment-box" placeholder="Comment">
+      <br/><br/>
+
+      <input type="submit"/>
+    </form>
 
     <br />
     <br />
