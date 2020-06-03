@@ -47,15 +47,8 @@ public class DataServlet extends HttpServlet {
         Query query = new Query("Comment");
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
-        int numComments = this.getNumComments(request);
-        List<Entity> limitedComments;
-        //if user did not choose All option, set limit to number selected
-        if (numComments != 0){
-            limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
-        } else {
-            //if user chose All option
-            limitedComments = results.asList(FetchOptions.Builder.withLimit(Integer.MAX_VALUE));
-        }
+        int numComments = this.getMaxNumComments(request);
+        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
         
         //add entity to list of comments
         List<String> commentsList = new ArrayList<String>();
@@ -76,8 +69,8 @@ public class DataServlet extends HttpServlet {
         //get comment from input box
         String comment = request.getParameter("comment-box");
         this.comments.add(comment);
-        response.setContentType("text/html");
-        response.getWriter().println(comment);
+        // response.setContentType("text/html");
+        // response.getWriter().println(comment);
 
         //create comment entity
         Entity commentEntity = new Entity("Comment");
@@ -88,7 +81,7 @@ public class DataServlet extends HttpServlet {
         datastore.put(commentEntity);
 
         //redirect to HTML page
-        response.sendRedirect("/videos.html");
+        response.sendRedirect("/videos.html#comment-box");
     }
 
     /** 
@@ -97,7 +90,7 @@ public class DataServlet extends HttpServlet {
     * @param HTTP request
     * @return number of comments to be displayed
     */
-    private int getNumComments(HttpServletRequest request){
+    private int getMaxNumComments(HttpServletRequest request){
         String numCommentsString = request.getParameter("num");
         if (numCommentsString.equals("5")){
             return 5;
@@ -106,7 +99,7 @@ public class DataServlet extends HttpServlet {
         } else if (numCommentsString.equals("20")){
             return 20;
         } else {
-            return 0;
+            return Integer.MAX_VALUE;
         }
     }
 }
