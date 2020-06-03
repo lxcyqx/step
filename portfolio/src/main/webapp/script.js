@@ -28,5 +28,7 @@ function createListElement(text){
 /** Deletes all the comments and calls getComments to get comments from API with all comments now deleted*/
 function deleteAll(){
     const request = new Request('/delete-data', {method: 'POST'});
-    fetch(request).then(response => response.json()).then(() => getComments());   
+    fetch(request).then(() => {
+        getComments()
+    });   
 }
