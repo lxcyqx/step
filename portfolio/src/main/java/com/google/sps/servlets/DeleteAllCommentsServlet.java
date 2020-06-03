@@ -27,6 +27,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
 
@@ -36,40 +38,10 @@ public class DeleteAllCommentsServlet extends HttpServlet {
   
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        //get comment from input box
-        String comment = request.getParameter("comment-box");
-        this.comments.add(comment);
-        // response.setContentType("text/html");
-        // response.getWriter().println(comment);
-
-        //create comment entity
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("text", comment);
-
-        //store entity in database
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
-
-        //redirect to HTML page
-        response.sendRedirect("/videos.html#comment-box");
-    }
-
-    /** 
-    * Get number of comments user wants to display.
-    *
-    * @param HTTP request
-    * @return number of comments to be displayed
-    */
-    private int getMaxNumComments(HttpServletRequest request){
-        String numCommentsString = request.getParameter("num");
-        if (numCommentsString.equals("5")){
-            return 5;
-        } else if (numCommentsString.equals("10")){
-            return 10;
-        } else if (numCommentsString.equals("20")){
-            return 20;
-        } else {
-            return Integer.MAX_VALUE;
+        Query query = new Query("Comment");
+        for (Entity commentEntity : datastore.prepare(query).asIterable()){
+            datastore.delete(commentEntity.getKey());
         }
     }
 }

@@ -69,9 +69,7 @@ public class DataServlet extends HttpServlet {
         //get comment from input box
         String comment = request.getParameter("comment-box");
         this.comments.add(comment);
-        // response.setContentType("text/html");
-        // response.getWriter().println(comment);
-
+        
         //create comment entity
         Entity commentEntity = new Entity("Comment");
         commentEntity.setProperty("text", comment);

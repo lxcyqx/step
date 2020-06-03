@@ -7,6 +7,7 @@ function getRandomQuote(){
 
 /** Fetch comments from server and add to DOM */
 function getComments(){
+    console.log("in getting comments");
     maxNumComments = document.getElementById("num-comments").value;
     fetch('/data?num='+ maxNumComments).then(response => response.json()).then((messages) => {
         const commentElement = document.getElementById('video-comments');
@@ -22,4 +23,10 @@ function createListElement(text){
     const liElement = document.createElement('li');
     liElement.innerText = text;
     return liElement;
+}
+
+/** Deletes all the comments and calls getComments to get comments from API with all comments now deleted*/
+function deleteAll(){
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request).then(response => response.json()).then(() => getComments());   
 }
