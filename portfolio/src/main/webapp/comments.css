@@ -23,12 +23,15 @@ textarea {
   font-size: 14px;
   padding: 15px;
   font-family: Verdana;
+  outline: none;
 }
 
 input[type="text"] {
   border: none;
   padding: 10px;
   width: calc(100% - 20px);
+  outline: none;
+  font-family: Verdana;
 }
 
 #video-comments-container {
@@ -38,11 +41,13 @@ input[type="text"] {
 .comment-text {
   padding-bottom: 20px;
   color: #555f77;
+  font-family: Verdana;
 }
 
 .comment-footer {
   color: #acb4c2;
   font-size: 13px;
+  font-family: Verdana;
 }
 
 #video-comments {
@@ -57,16 +62,6 @@ input[type="text"] {
   margin-bottom: 10px;
   color: #484848;
 }
-/* input[type=text], select {
-  width: 30%;
-  height: 120px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-} */
 
 input[type="submit"] {
   width: 20%;
@@ -79,6 +74,7 @@ input[type="submit"] {
   cursor: pointer;
   margin-left: auto;
   float: right;
+  font-family: Verdana;
 }
 
 input[type="submit"]:hover {
@@ -95,6 +91,7 @@ input[type="submit"]:hover {
   cursor: pointer;
   margin-left: auto 20px;
   float: right;
+  font-family: Verdana;
 }
 
 .dropdown:hover {

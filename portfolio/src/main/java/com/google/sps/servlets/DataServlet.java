@@ -29,17 +29,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   
-    private List<String> comments;
+    private List<Comment> comments;
 
     /** Add comments to Arraylist*/
     @Override
     public void init() {
-        comments = new ArrayList<String>();
+        comments = new ArrayList<Comment>();
     }
 
     @Override
@@ -51,10 +52,12 @@ public class DataServlet extends HttpServlet {
         List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
         
         //add entity to list of comments
-        List<String> commentsList = new ArrayList<String>();
+        List<Comment> commentsList = new ArrayList<Comment>();
         for (Entity entity : limitedComments){
             String text = (String) entity.getProperty("text");
-            commentsList.add(text);
+            String name = (String) entity.getProperty("name");
+            Comment comment = new Comment(text, name);
+            commentsList.add(comment);
         }
 
         String json = new Gson().toJson(commentsList);
@@ -67,12 +70,15 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         //get comment from input box
-        String comment = request.getParameter("comment-box");
+        String text = request.getParameter("comment-box");        
+        String name = request.getParameter("name-box");
+        Comment comment = new Comment(text, name);
         this.comments.add(comment);
         
         //create comment entity
         Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("text", comment);
+        commentEntity.setProperty("text", text);
+        commentEntity.setProperty("name", name);
 
         //store entity in database
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

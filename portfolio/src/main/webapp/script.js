@@ -8,23 +8,37 @@ function getRandomQuote(){
 /** Fetch comments from server and add to DOM */
 function getComments(){
     maxNumComments = document.getElementById("num-comments").value;
-    fetch('/data?num='+ maxNumComments).then(response => response.json()).then((messages) => {
+    fetch('/data?num='+ maxNumComments).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
-        for (i = 0; i < messages.length; i++){
-            commentElement.appendChild(createCommentElement(messages[i]));
+        for (i = 0; i < comments.length; i++){
+            commentElement.appendChild(createCommentElement(comments[i]));
         }
     });
 }
 
-/** Creates formatting for comment to be inserted */
-function createCommentElement(text){
+/** Create formatting for comment to be inserted */
+function createCommentElement(comment){
     const commentElement = document.createElement('div');
     commentElement.setAttribute("id", "video-comments");
     const commentText = document.createElement('div');
+    //add comment text
     commentText.setAttribute("class", "comment-text");
-    commentText.innerText = text;
+    commentText.innerText = comment.text;
     commentElement.appendChild(commentText);
+    //add comment footer
+    const commentFooter = document.createElement('div');
+    commentFooter.setAttribute("class", "comment-footer");
+    const footerInfo = document.createElement('div');
+    footerInfo.setAttribute("class", "footer-info");
+    //if user did not provide name, set name as anonymous
+    if (comment.name === ''){
+        footerInfo.innerText = "Anonymous";
+    } else {
+        footerInfo.innerText = comment.name;
+    }
+    commentFooter.appendChild(footerInfo);
+    commentElement.appendChild(commentFooter);
     return commentElement;
 }
 
