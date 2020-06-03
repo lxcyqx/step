@@ -7,7 +7,8 @@ function getRandomQuote(){
 
 /** Fetch comments from server and add to DOM */
 function getComments(){
-    fetch('/data').then(response => response.json()).then((messages) => {
+    maxNumComments = document.getElementById("num-comments").value;
+    fetch('/data?num='+ maxNumComments).then(response => response.json()).then((messages) => {
         const commentElement = document.getElementById('video-comments');
         commentElement.innerHTML = '';
         for (i = 0; i < messages.length; i++){
