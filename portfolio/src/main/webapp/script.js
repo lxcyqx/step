@@ -7,15 +7,25 @@ function getRandomQuote(){
 
 /** Fetch comments from server and add to DOM */
 function getComments(){
-    console.log("in getting comments");
     maxNumComments = document.getElementById("num-comments").value;
     fetch('/data?num='+ maxNumComments).then(response => response.json()).then((messages) => {
-        const commentElement = document.getElementById('video-comments');
+        const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         for (i = 0; i < messages.length; i++){
-            commentElement.appendChild(createListElement(messages[i]));
+            commentElement.appendChild(createCommentElement(messages[i]));
         }
     });
+}
+
+/** Creates formatting for comment to be inserted */
+function createCommentElement(text){
+    const commentElement = document.createElement('div');
+    commentElement.setAttribute("id", "video-comments");
+    const commentText = document.createElement('div');
+    commentText.setAttribute("class", "comment-text");
+    commentText.innerText = text;
+    commentElement.appendChild(commentText);
+    return commentElement;
 }
 
 /** Creates an <li> element containing text */

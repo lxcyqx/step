@@ -3,6 +3,7 @@
   <head>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="styles.css" />
+     <link rel="stylesheet" href="comments.css" />
     <script src="script.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -161,27 +162,53 @@
     </div>
 
     <br />
+    <br /> 
 
-    <button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
+    <!-- comments section -->
+    <div class="comment-container">
 
-    <label for="comments">Number of comments:</label>
-    <select onchange="getComments()" name="num-comments" id="num-comments">
+        <button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
+
+        <select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
-        <option selected="selected" value="All">All</option>
-    </select>
-    <br><br>
+        <option selected="selected" value="All">View All</option>
+        </select>
+        <br><br>
 
-    <div id="video-comments"></div>
-    
-    <form action="/data" method="POST">
-      <p>Leave a Comment:</p>
-      <input id="comment-box" type="text" name="comment-box" placeholder="Comment">
-      <br/><br/>
+        <div id="video-comments-container">
+            <!-- <div id="video-comments">
+                <div class="comment-text">Hey
+                </div>
+                <div class="comment-footer">
+                    <div class="footer-info">
+                        Lucy | Feb 2, 2013 11:32:04 PM
+                    </div>
+                </div>
+            </div>
+            <div id="video-comments">
+                <div class="comment-text">Hello</div>
+                <div class="comment-footer">
+                    <div class="footer-info">
+                        Anonymous | Feb 2, 2013 11:32:04 PM
+                    </div>
+                </div>
+            </div> -->
+        </div>
 
-      <input type="submit"/>
-    </form>
+        <form class="form" action="/data" method="POST">
+        <!--   <input id="comment-box" type="text" name="comment-box" placeholder="Add comment..."> -->
+
+        <textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
+
+        <input id="name-box" type="text" name="comment-box" placeholder="Name">
+        <br /><br />
+
+        <input type="submit" />
+        </form>
+    </div>
+
 
     <br />
     <br />
