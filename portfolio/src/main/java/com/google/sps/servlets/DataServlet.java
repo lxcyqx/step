@@ -72,18 +72,20 @@ public class DataServlet extends HttpServlet {
         //get comment from input box
         String text = request.getParameter("comment-box");        
         String name = request.getParameter("name-box");
-        Comment comment = new Comment(text, name);
-        this.comments.add(comment);
-        
-        //create comment entity
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("text", text);
-        commentEntity.setProperty("name", name);
+        //if user entered a comment
+        if (!text.equals("")){
+            Comment comment = new Comment(text, name);
+            this.comments.add(comment);
 
-        //store entity in database
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+            //create comment entity
+            Entity commentEntity = new Entity("Comment");
+            commentEntity.setProperty("text", text);
+            commentEntity.setProperty("name", name);
 
+            //store entity in database
+            DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+            datastore.put(commentEntity);
+        }
         //redirect to HTML page
         response.sendRedirect("/videos.html#comment-box");
     }
