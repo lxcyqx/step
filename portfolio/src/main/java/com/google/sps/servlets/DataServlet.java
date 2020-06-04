@@ -73,18 +73,16 @@ public class DataServlet extends HttpServlet {
         String name = request.getParameter("name-box");
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-        //if user entered a comment
-        if (!text.equals("")){
-            //create comment entity
-            Entity commentEntity = new Entity("Comment");
-            commentEntity.setProperty("text", text);
-            commentEntity.setProperty("name", name);
-            commentEntity.setProperty("timestamp", timestamp);
+        //create comment entity
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("text", text);
+        commentEntity.setProperty("name", name);
+        commentEntity.setProperty("timestamp", timestamp);
 
-            //store entity in database
-            DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-            datastore.put(commentEntity);
-        }
+        //store entity in database
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
+
         //redirect to HTML page
         response.sendRedirect("/videos.html#comment-box");
     }

@@ -72,3 +72,20 @@ function deleteComment(comment) {
     params.append('id', comment.id);
     fetch('/delete-comment', { method: 'POST', body: params });
 }
+
+var my_func = function(event) {
+    //prevent user from submitting if text area is empty
+    if (document.getElementById("comment-box").value === '') {
+        event.preventDefault();
+    } else {
+        //else submit comment
+        event.unbind("submit").submit();
+    }
+}
+
+window.addEventListener("load", getForm, false);
+function getForm() {
+    document.getElementById("form").addEventListener("submit", my_func, true);
+}
+
+
