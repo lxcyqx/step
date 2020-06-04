@@ -37,15 +37,6 @@ import com.google.sps.data.Comment;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  
-    private List<Comment> comments;
-
-    /** Add comments to Arraylist*/
-    @Override
-    public void init() {
-        comments = new ArrayList<Comment>();
-    }
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //by default comments ordered by timestamp
@@ -60,10 +51,11 @@ public class DataServlet extends HttpServlet {
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
         for (Entity entity : limitedComments){
+            long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
             String name = (String) entity.getProperty("name");
             String timestamp = (String) entity.getProperty("timestamp");
-            Comment comment = new Comment(text, name, timestamp);
+            Comment comment = new Comment(id, text, name, timestamp);
             commentsList.add(comment);
         }
 
@@ -79,15 +71,10 @@ public class DataServlet extends HttpServlet {
         //get comment from input box along with name and timestamp
         String text = request.getParameter("comment-box");        
         String name = request.getParameter("name-box");
-        // long timestamp = System.currentTimeMillis();
-
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
         //if user entered a comment
         if (!text.equals("")){
-            Comment comment = new Comment(text, name, timestamp);
-            this.comments.add(comment);
-
             //create comment entity
             Entity commentEntity = new Entity("Comment");
             commentEntity.setProperty("text", text);

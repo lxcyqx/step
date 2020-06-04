@@ -24,6 +24,11 @@ function createCommentElement(comment) {
     //add delete button
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("class", "delete");
+    deleteButton.addEventListener('click', () => {
+        deleteComment(comment);
+        //remove task from DOM
+        commentElement.remove();
+    })
     deleteButton.innerText = "Delete";
     commentElement.appendChild(deleteButton);
     //add comment text
