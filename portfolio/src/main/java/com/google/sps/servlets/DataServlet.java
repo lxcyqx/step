@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Integer;
+import java.util.Date;
+import java.text.SimpleDateFormat; 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +62,7 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : limitedComments){
             String text = (String) entity.getProperty("text");
             String name = (String) entity.getProperty("name");
-            long timestamp = (long) entity.getProperty("timestamp");
+            String timestamp = (String) entity.getProperty("timestamp");
             Comment comment = new Comment(text, name, timestamp);
             commentsList.add(comment);
         }
@@ -77,7 +79,9 @@ public class DataServlet extends HttpServlet {
         //get comment from input box along with name and timestamp
         String text = request.getParameter("comment-box");        
         String name = request.getParameter("name-box");
-        long timestamp = System.currentTimeMillis();
+        // long timestamp = System.currentTimeMillis();
+
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
         //if user entered a comment
         if (!text.equals("")){
