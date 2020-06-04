@@ -21,8 +21,13 @@ function getComments() {
 function createCommentElement(comment) {
     const commentElement = document.createElement('div');
     commentElement.setAttribute("id", "video-comments");
-    const commentText = document.createElement('div');
+    //add delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "delete");
+    deleteButton.innerText = "Delete";
+    commentElement.appendChild(deleteButton);
     //add comment text
+    const commentText = document.createElement('div');
     commentText.setAttribute("class", "comment-text");
     commentText.innerText = comment.text;
     commentElement.appendChild(commentText);
@@ -55,4 +60,10 @@ function deleteAll() {
     fetch(request).then(() => {
         getComments()
     });
+}
+
+function deleteComment(comment) {
+    const params = new URLSearchParams();
+    params.append('id', comment.id);
+    fetch('/delete-comment', { method: 'POST', body: params });
 }

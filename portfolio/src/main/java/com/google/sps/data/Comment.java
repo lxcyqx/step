@@ -1,6 +1,7 @@
 package com.google.sps.data;
 
 public class Comment {
+    long id;
     String text;
     String name;
     String timestamp;

@@ -8,9 +8,25 @@
   border: none;
   background: none;
   color: #acb4c2;
+  outline: none;
+  font-size: 13px;
 }
 
 #delete-all:hover {
+  color: #555f77;
+}
+
+.delete {
+  font-size: 13px;
+  border: none;
+  background: none;
+  color: #acb4c2;
+  float: right;
+  outline: none;
+  padding-left: 10px
+}
+
+.delete:hover{
   color: #555f77;
 }
 
@@ -29,9 +45,11 @@ textarea {
 input[type="text"] {
   border: none;
   padding: 10px;
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   outline: none;
   font-family: Verdana;
+  font-size: 14px;
+  padding: 15px;
 }
 
 #video-comments-container {
@@ -75,6 +93,8 @@ input[type="submit"] {
   margin-left: auto;
   float: right;
   font-family: Verdana;
+  outline: none;
+  font-size: 14px;
 }
 
 input[type="submit"]:hover {
@@ -92,6 +112,8 @@ input[type="submit"]:hover {
   margin-left: auto 20px;
   float: right;
   font-family: Verdana;
+  outline: none;
+  font-size: 13px;
 }
 
 .dropdown:hover {
