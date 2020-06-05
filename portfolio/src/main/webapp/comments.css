@@ -56,6 +56,15 @@ input[type="text"] {
   margin-bottom: 20px;
 }
 
+.no-comment{
+  text-align: center;
+  font-style: italic;
+  font-family: Verdana;
+  color: #888;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
 .comment-text {
   padding-bottom: 20px;
   color: #555f77;

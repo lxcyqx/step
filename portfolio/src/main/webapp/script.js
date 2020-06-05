@@ -12,28 +12,48 @@ let numCommentsOnPage;
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
     var prevBtn = document.getElementById("prevBtn")
-    //if on first page of comments, get rid of previous button
-    if (currPage === 0) {
-        prevBtn.disabled = true;
-    } else {
-        prevBtn.disabled = false;
-    }
+
+    handleFirstPage();
 
     fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         numCommentsOnPage = comments.length;
-        console.log(numCommentsOnPage);
-        if (numCommentsOnPage < 5) {
-            nextBtn.disabled = true;
-        } else {
-            nextBtn.disabled = false;
-        }
+
+        handleLastPage();
 
         for (i = 0; i < numCommentsOnPage; i++) {
             commentElement.appendChild(createCommentElement(comments[i]));
         }
     });
+}
+
+/** If on first page of comments, disable previous button*/
+function handleFirstPage() {
+    if (currPage === 0) {
+        prevBtn.disabled = true;
+    } else {
+        prevBtn.disabled = false;
+    }
+}
+
+/** Handle scenario if on last page of comments*/
+function handleLastPage() {
+    //Disable next button if on last page
+    if (numCommentsOnPage < 5) {
+        nextBtn.disabled = true;
+    } else {
+        nextBtn.disabled = false;
+    }
+
+    //handles case when last page has no comments
+    if (numCommentsOnPage === 0) {
+        const commentsContainer = document.getElementById("video-comments-container");
+        const noComment = document.createElement('div');
+        noComment.setAttribute("class", "no-comment");
+        noComment.innerText = "No comments to display."
+        commentsContainer.appendChild(noComment);
+    }
 }
 
 /** Create formatting for comment to be inserted */
@@ -45,9 +65,6 @@ function createCommentElement(comment) {
     deleteButton.setAttribute("class", "delete");
     deleteButton.addEventListener('click', () => {
         deleteComment(comment);
-        //remove task from DOM
-        commentElement.remove();
-        // getComments();
     })
     deleteButton.innerText = "Delete";
     commentElement.appendChild(deleteButton);
@@ -91,7 +108,9 @@ function deleteAll() {
 function deleteComment(comment) {
     const params = new URLSearchParams();
     params.append('id', comment.id);
-    fetch('/delete-comment', { method: 'POST', body: params });
+    fetch('/delete-comment', { method: 'POST', body: params }).then(() => {
+        getComments()
+    });
 }
 
 /** Add user's comment */
@@ -106,11 +125,13 @@ function addComment() {
     setTimeout(getComments, 500);
 }
 
+/** Increments current page number */
 function nextPage() {
     currPage++;
     getComments();
 }
 
+/** Decrements current page number */
 function prevPage() {
     currPage--;
     getComments();
