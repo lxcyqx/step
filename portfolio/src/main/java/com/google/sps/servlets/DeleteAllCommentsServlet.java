@@ -32,7 +32,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet responsible for deleting all comments */
 @WebServlet("/delete-data")
 public class DeleteAllCommentsServlet extends HttpServlet {
   

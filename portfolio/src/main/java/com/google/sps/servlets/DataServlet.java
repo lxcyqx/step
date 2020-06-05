@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Integer;
 import java.util.Date;
+import java.lang.Math;
 import java.text.SimpleDateFormat; 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +35,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet responsible for displaying comment data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     @Override
@@ -44,13 +45,16 @@ public class DataServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
+        int currPage = Integer.parseInt(request.getParameter("page"));
+
         //get number of max comments to show from user input and limit list of comments
         int numComments = this.getMaxNumComments(request);
         List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
-        
+
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
-        for (Entity entity : limitedComments){
+        for (int i = 5*currPage; i <= Math.min(5*currPage + 4, limitedComments.size()-1); i++){
+            Entity entity = limitedComments.get(i);
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
             String name = (String) entity.getProperty("name");

@@ -5,10 +5,20 @@ function getRandomQuote() {
     })
 }
 
+let currPage = 0;
+
 /** Fetch comments from server and add to DOM */
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
-    fetch('/data?num=' + maxNumComments).then(response => response.json()).then((comments) => {
+    var prevBtn = document.getElementById("prevBtn")
+    if (currPage === 0) {
+        prevBtn.disabled = true;
+        prevBtn.style.display = "none"
+    } else {
+        prevBtn.disabled = false;
+        prevBtn.style.display = "block"
+    }
+    fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         for (i = 0; i < comments.length; i++) {
@@ -42,7 +52,7 @@ function createCommentElement(comment) {
     const footerInfo = document.createElement('div');
     footerInfo.setAttribute("class", "footer-info");
     //if user did not provide name, set name as anonymous
-    if (comment.name === '') {
+    if (comment.name.trim() === '') {
         footerInfo.innerText = "Anonymous" + " | " + comment.timestamp;
     } else {
         footerInfo.innerText = comment.name + " | " + comment.timestamp;
@@ -74,9 +84,11 @@ function deleteComment(comment) {
     fetch('/delete-comment', { method: 'POST', body: params });
 }
 
+/** Add user's comment */
 function addComment() {
     let text = document.getElementById("comment-box").value;
     let name = document.getElementById("name-box").value;
+    //if comment input is empty, can't submit
     if (text.trim() === '') return;
     document.getElementById("comment-box").value = '';
     fetch('add-comment?comment-text=' + text + '&name=' + name, { method: 'POST' });
@@ -84,21 +96,13 @@ function addComment() {
     setTimeout(getComments, 500);
 }
 
-// var my_func = function(event) {
-//     //prevent user from submitting if text area is empty or only white spaces
-//     if (document.getElementById("comment-box").value.trim() === '') {
-//         event.preventDefault();
-//     } else {
-//         //else submit comment
-//         event.unbind("submit").submit();
-//     }
-// }
+function nextPage() {
+    currPage++;
+    getComments();
+}
 
-// window.addEventListener("load", getForm, false);
-
-// /**Add event listener to submit button */
-// function getForm() {
-//     document.getElementById("form").addEventListener("submit", my_func, true);
-// }
-
+function prevPage() {
+    currPage--;
+    getComments();
+}
 

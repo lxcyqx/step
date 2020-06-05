@@ -44,6 +44,7 @@ textarea {
 
 input[type="text"] {
   border: none;
+  padding: 10px;
   width: calc(100% - 30px);
   outline: none;
   font-family: Verdana;
@@ -80,24 +81,30 @@ input[type="text"] {
   color: #484848;
 }
 
-.submitBtn {
-  width: 120px;
+.comment-controls {
+  padding-bottom: 1rem;
+}
+
+#prevBtn{
+    margin-right: 10px;
+}
+
+.commentBtn {
   background-color: #747fe0;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 10px 18px;
+  margin: 4px 0 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: auto;
   float: right;
   font-family: Verdana;
-  outline: none;
+  outline:none;
   font-size: 14px;
 }
 
-.submitBtn:hover {
-  background-color: #4352de;
+.commentBtn:hover {
+    background-color: #4352de;
 }
 
 .dropdown {
@@ -127,8 +134,12 @@ input[type="text"] {
   #video-comments {
     width: calc(100%-10px);
   }
+
+  .form {
+    width: calc(100%-10px);
+  }
   
-  .submitBtn {
+  #submit {
     width: calc(100%);
   }
 }

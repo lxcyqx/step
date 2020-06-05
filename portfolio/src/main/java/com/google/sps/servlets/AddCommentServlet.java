@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet responsible for deleting comment. */
+/** Servlet responsible for adding comment. */
 @WebServlet("/add-comment")
 public class AddCommentServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //get comment information from request parameters
     String text = request.getParameter("comment-text");
     String name = request.getParameter("name");
     String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
+    //create entity and add to datastore
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("name", name);

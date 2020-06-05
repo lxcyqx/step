@@ -126,31 +126,6 @@
 	<br />
 
 	<!-- comments section -->
-	<!-- <div class="comment-container">
-
-		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
-
-		<select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option selected="selected" value="All">View All Comments</option>
-        </select>
-		<br><br>
-
-		<div id="video-comments-container"></div>
-
-		<form id="form" class="form" action="/data" method="POST">
-			<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
-
-			<input id="name-box" type="text" name="name-box" placeholder="Name">
-			<br /><br />
-
-			<input type="submit" />
-        </form>
-	</div> -->
-
-
 	<div class="comment-container">
 
 		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
@@ -164,11 +139,20 @@
 		<br><br>
 
 		<div id="video-comments-container"></div>
+
+		<div class="comment-controls">
+			<button id="nextBtn" class="commentBtn" onclick="nextPage()">Next</button>
+			<button id="prevBtn" class="commentBtn" onclick="prevPage()">Previous</button>
+		</div>
+
 		<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
 
 		<input id="name-box" type="text" name="name-box" placeholder="Name">
 		<br /><br />
-		<button class="submitBtn" onclick="addComment()">Submit</button>
+		<button id="submit" class="commentBtn" onclick="addComment()">Submit</button>
+
+
+
 	</div>
 
 
