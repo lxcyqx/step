@@ -11,7 +11,7 @@ let numCommentsOnPage;
 /** Fetch comments from server and add to DOM */
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
-    var prevBtn = document.getElementById("prevBtn")
+    let prevBtn = document.getElementById("prevBtn")
 
     handleFirstPage();
 
