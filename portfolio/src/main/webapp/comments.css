@@ -89,6 +89,10 @@ input[type="text"] {
     margin-right: 10px;
 }
 
+#nextBtn:disabled, #prevBtn:disabled{
+    background-color: #888;
+}
+
 .commentBtn {
   background-color: #747fe0;
   color: white;

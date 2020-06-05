@@ -6,22 +6,31 @@ function getRandomQuote() {
 }
 
 let currPage = 0;
+let numCommentsOnPage;
 
 /** Fetch comments from server and add to DOM */
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
     var prevBtn = document.getElementById("prevBtn")
+    //if on first page of comments, get rid of previous button
     if (currPage === 0) {
         prevBtn.disabled = true;
-        prevBtn.style.display = "none"
     } else {
         prevBtn.disabled = false;
-        prevBtn.style.display = "block"
     }
+
     fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
-        for (i = 0; i < comments.length; i++) {
+        numCommentsOnPage = comments.length;
+        console.log(numCommentsOnPage);
+        if (numCommentsOnPage < 5) {
+            nextBtn.disabled = true;
+        } else {
+            nextBtn.disabled = false;
+        }
+
+        for (i = 0; i < numCommentsOnPage; i++) {
             commentElement.appendChild(createCommentElement(comments[i]));
         }
     });
@@ -38,6 +47,7 @@ function createCommentElement(comment) {
         deleteComment(comment);
         //remove task from DOM
         commentElement.remove();
+        // getComments();
     })
     deleteButton.innerText = "Delete";
     commentElement.appendChild(deleteButton);
