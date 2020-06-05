@@ -66,27 +66,6 @@ public class DataServlet extends HttpServlet {
         response.getWriter().println(json);
     }
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        //get comment from input box along with name and timestamp
-        String text = request.getParameter("comment-box");        
-        String name = request.getParameter("name-box");
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        //create comment entity
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("text", text);
-        commentEntity.setProperty("name", name);
-        commentEntity.setProperty("timestamp", timestamp);
-
-        //store entity in database
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
-
-        //redirect to HTML page
-        response.sendRedirect("/videos.html#comment-box");
-    }
-
     /** 
     * Get number of comments user wants to display.
     *

@@ -67,25 +67,38 @@ function deleteAll() {
     });
 }
 
+/** Delete given comment */
 function deleteComment(comment) {
     const params = new URLSearchParams();
     params.append('id', comment.id);
     fetch('/delete-comment', { method: 'POST', body: params });
 }
 
-var my_func = function(event) {
-    //prevent user from submitting if text area is empty
-    if (document.getElementById("comment-box").value === '') {
-        event.preventDefault();
-    } else {
-        //else submit comment
-        event.unbind("submit").submit();
-    }
+function addComment() {
+    let text = document.getElementById("comment-box").value;
+    let name = document.getElementById("name-box").value;
+    if (text.trim() === '') return;
+    document.getElementById("comment-box").value = '';
+    fetch('add-comment?comment-text=' + text + '&name=' + name, { method: 'POST' });
+
+    setTimeout(getComments, 500);
 }
 
-window.addEventListener("load", getForm, false);
-function getForm() {
-    document.getElementById("form").addEventListener("submit", my_func, true);
-}
+// var my_func = function(event) {
+//     //prevent user from submitting if text area is empty or only white spaces
+//     if (document.getElementById("comment-box").value.trim() === '') {
+//         event.preventDefault();
+//     } else {
+//         //else submit comment
+//         event.unbind("submit").submit();
+//     }
+// }
+
+// window.addEventListener("load", getForm, false);
+
+// /**Add event listener to submit button */
+// function getForm() {
+//     document.getElementById("form").addEventListener("submit", my_func, true);
+// }
 
 

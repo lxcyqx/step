@@ -44,7 +44,6 @@ textarea {
 
 input[type="text"] {
   border: none;
-  padding: 10px;
   width: calc(100% - 30px);
   outline: none;
   font-family: Verdana;
@@ -81,7 +80,7 @@ input[type="text"] {
   color: #484848;
 }
 
-input[type="submit"] {
+.submitBtn {
   width: 120px;
   background-color: #747fe0;
   color: white;
@@ -97,7 +96,7 @@ input[type="submit"] {
   font-size: 14px;
 }
 
-input[type="submit"]:hover {
+.submitBtn:hover {
   background-color: #4352de;
 }
 
@@ -128,12 +127,8 @@ input[type="submit"]:hover {
   #video-comments {
     width: calc(100%-10px);
   }
-
-  .form {
-    width: calc(100%-10px);
-  }
   
-  input[type="submit"] {
+  .submitBtn {
     width: calc(100%);
   }
 }
