@@ -48,7 +48,7 @@ public class DataServlet extends HttpServlet {
 
         int currPage = Integer.parseInt(request.getParameter("page"));
 
-        //get number of max comments to show from user input and limit list of comments
+        //get number of comments to show per page from user input and limit list of comments depending on current page
         int numComments = this.getMaxNumComments(request);
         List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments).offset(numComments*currPage));
 
@@ -62,15 +62,6 @@ public class DataServlet extends HttpServlet {
             Comment comment = new Comment(id, text, name, timestamp);
             commentsList.add(comment);
         }
-        // for (int i = numComments*currPage; i < Math.min(numComments*currPage + numComments, limitedComments.size()); i++){
-        //     Entity entity = limitedComments.get(i);
-        //     long id = entity.getKey().getId();
-        //     String text = (String) entity.getProperty("text");
-        //     String name = (String) entity.getProperty("name");
-        //     String timestamp = (String) entity.getProperty("timestamp");
-        //     Comment comment = new Comment(id, text, name, timestamp);
-        //     commentsList.add(comment);
-        // }
 
         String json = new Gson().toJson(commentsList);
 
@@ -80,7 +71,7 @@ public class DataServlet extends HttpServlet {
     }
 
     /** 
-    * Get number of comments user wants to display.
+    * Get number of comments user wants to display per page of comments.
     *
     * @param HTTP request
     * @return number of comments to be displayed

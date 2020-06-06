@@ -21,7 +21,7 @@ function getComments() {
         numCommentsOnPage = comments.length;
 
         handleNoComments();
-        handleLastPage();
+        handleLastPage(maxNumComments);
 
         for (i = 0; i < numCommentsOnPage; i++) {
             commentElement.appendChild(createCommentElement(comments[i]));
@@ -39,9 +39,9 @@ function handleFirstPage() {
 }
 
 /** Handle scenario if on last page of comments*/
-function handleLastPage() {
+function handleLastPage(maxNumComments) {
     //Disable next button if on last page
-    if (numCommentsOnPage < 5) {
+    if (numCommentsOnPage < maxNumComments) {
         nextBtn.disabled = true;
     } else {
         nextBtn.disabled = false;
