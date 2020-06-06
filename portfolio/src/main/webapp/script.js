@@ -11,6 +11,9 @@ let numCommentsOnPage;
 /** Fetch comments from server and add to DOM */
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
+    if (maxNumComments === 'All'){
+        maxNumComments = Number.MAX_VALUE;
+    }
     let prevBtn = document.getElementById("prevBtn")
 
     handleFirstPage();
