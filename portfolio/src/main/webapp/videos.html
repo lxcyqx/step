@@ -130,13 +130,17 @@
 
 		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
 
-		<select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
-            <option selected="selected" value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="All">View All Comments</option>
-        </select>
-		<br><br>
+        <div class = "dropdown-container">
+            <label>Comments per page: </label>
+            <select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
+                <option selected="selected" value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="All">All</option>
+            </select>
+		    <br><br>
+        </div>
+		
 
 		<div id="video-comments-container"></div>
 
