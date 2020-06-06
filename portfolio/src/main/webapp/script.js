@@ -11,7 +11,7 @@ let numCommentsOnPage;
 /** Fetch comments from server and add to DOM */
 function getComments() {
     maxNumComments = document.getElementById("num-comments").value;
-    if (maxNumComments === 'All'){
+    if (maxNumComments === 'All') {
         maxNumComments = Number.MAX_VALUE;
     }
     let prevBtn = document.getElementById("prevBtn")
@@ -42,12 +42,17 @@ function handleFirstPage() {
 
 /** Handle scenario if on last page of comments*/
 function handleLastPage(maxNumComments) {
-    //Disable next button if on last page
-    if (numCommentsOnPage < maxNumComments) {
-        nextBtn.disabled = true;
-    } else {
-        nextBtn.disabled = false;
-    }
+    let nextPage = currPage + 1;
+    //check for number of comments on next page
+    fetch('/data?num=' + maxNumComments + "&page=" + nextPage).then(response => response.json().then((comments) => {
+        //if no comments on next page, then current page is last page
+        if (comments.length === 0) {
+            console.log("disable");
+            nextBtn.disabled = true;
+        } else {
+            nextBtn.disabled = false;
+        }
+    }))
 }
 
 /** Handles scenario in which page has no comments */
@@ -59,6 +64,12 @@ function handleNoComments() {
         noComment.setAttribute("class", "no-comment");
         noComment.innerText = "No comments to display."
         commentsContainer.appendChild(noComment);
+        // currPage = 0;
+        // fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
+        //     for (i = 0; i < comments.length; i++) {
+        //         commentElement.appendChild(createCommentElement(comments[i]));
+        //     }
+        // });
     }
 }
 
