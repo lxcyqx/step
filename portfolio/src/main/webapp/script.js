@@ -14,7 +14,6 @@ function getComments() {
     let prevBtn = document.getElementById("prevBtn")
 
     handleFirstPage();
-
     fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
@@ -39,6 +38,9 @@ function handleFirstPage() {
 
 /** Handle scenario if on last page of comments*/
 function handleLastPage() {
+    // let numComments = fetch('/data').then(response => response.json());
+    // console.log(numComments);
+
     //Disable next button if on last page
     if (numCommentsOnPage < 5) {
         nextBtn.disabled = true;

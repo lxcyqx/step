@@ -38,6 +38,9 @@ import com.google.sps.data.Comment;
 /** Servlet responsible for displaying comment data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
+    //maximum number of comments displayed per page
+    private static final int NUM_PER_PAGE = 5;
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //by default comments ordered by timestamp
@@ -53,7 +56,7 @@ public class DataServlet extends HttpServlet {
 
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
-        for (int i = 5*currPage; i <= Math.min(5*currPage + 4, limitedComments.size()-1); i++){
+        for (int i = NUM_PER_PAGE*currPage; i < Math.min(NUM_PER_PAGE*currPage + NUM_PER_PAGE, limitedComments.size()); i++){
             Entity entity = limitedComments.get(i);
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
