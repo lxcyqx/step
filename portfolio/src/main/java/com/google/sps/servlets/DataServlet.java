@@ -39,8 +39,6 @@ import com.google.sps.data.Comment;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    //maximum number of comments displayed per page
-    private static final int NUM_PER_PAGE = 5;
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //by default comments ordered by timestamp
@@ -52,12 +50,11 @@ public class DataServlet extends HttpServlet {
 
         //get number of max comments to show from user input and limit list of comments
         int numComments = this.getMaxNumComments(request);
-        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
+        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments).offset(numComments*currPage));
 
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
-        for (int i = NUM_PER_PAGE*currPage; i < Math.min(NUM_PER_PAGE*currPage + NUM_PER_PAGE, limitedComments.size()); i++){
-            Entity entity = limitedComments.get(i);
+        for (Entity entity : limitedComments){
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
             String name = (String) entity.getProperty("name");
@@ -65,6 +62,15 @@ public class DataServlet extends HttpServlet {
             Comment comment = new Comment(id, text, name, timestamp);
             commentsList.add(comment);
         }
+        // for (int i = numComments*currPage; i < Math.min(numComments*currPage + numComments, limitedComments.size()); i++){
+        //     Entity entity = limitedComments.get(i);
+        //     long id = entity.getKey().getId();
+        //     String text = (String) entity.getProperty("text");
+        //     String name = (String) entity.getProperty("name");
+        //     String timestamp = (String) entity.getProperty("timestamp");
+        //     Comment comment = new Comment(id, text, name, timestamp);
+        //     commentsList.add(comment);
+        // }
 
         String json = new Gson().toJson(commentsList);
 

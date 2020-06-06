@@ -7,6 +7,7 @@ function getRandomQuote() {
 
 let currPage = 0;
 let numCommentsOnPage;
+let numTotalComments;
 
 /** Fetch comments from server and add to DOM */
 function getComments() {
@@ -19,6 +20,7 @@ function getComments() {
         commentElement.innerHTML = '';
         numCommentsOnPage = comments.length;
 
+        handleNoComments();
         handleLastPage();
 
         for (i = 0; i < numCommentsOnPage; i++) {
@@ -38,16 +40,16 @@ function handleFirstPage() {
 
 /** Handle scenario if on last page of comments*/
 function handleLastPage() {
-    // let numComments = fetch('/data').then(response => response.json());
-    // console.log(numComments);
-
     //Disable next button if on last page
     if (numCommentsOnPage < 5) {
         nextBtn.disabled = true;
     } else {
         nextBtn.disabled = false;
     }
+}
 
+/** Handles scenario in which page has no comments */
+function handleNoComments() {
     //handles case when last page has no comments
     if (numCommentsOnPage === 0) {
         const commentsContainer = document.getElementById("video-comments-container");
