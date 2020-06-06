@@ -7,7 +7,6 @@ function getRandomQuote() {
 
 let currPage = 0;
 let numCommentsOnPage;
-let numTotalComments;
 
 /** Fetch comments from server and add to DOM */
 function getComments() {
