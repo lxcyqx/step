@@ -55,12 +55,14 @@ function handleLastPage(maxNumComments) {
     }))
 }
 
-/** Handles scenario in which page has no comments */
+/** Handles scenario in which page has no comments, either when there are no comments in general or when there are no comments on current page due to page size change */
 function handleNoComments(maxNumComments) {
     //handles case when last page has no comments
     if (numCommentsOnPage === 0) {
+        //set current page to 0 and fetch comments that would be displayed on first page
         currPage = 0;
         fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
+            //if there aren't any comments at all, add message
             if (comments.length === 0) {
                 const commentsContainer = document.getElementById("video-comments-container");
                 const noComment = document.createElement('div');
@@ -68,6 +70,7 @@ function handleNoComments(maxNumComments) {
                 noComment.innerText = "No comments to display."
                 commentsContainer.appendChild(noComment);
             } else {
+                //display comments on the first page
                 const commentElement = document.getElementById('video-comments-container');
                 commentElement.innerHTML = '';
                 handleFirstPage();
