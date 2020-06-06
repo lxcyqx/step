@@ -17,12 +17,13 @@ function getComments() {
     let prevBtn = document.getElementById("prevBtn")
 
     handleFirstPage();
+
     fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         numCommentsOnPage = comments.length;
 
-        handleNoComments();
+        handleNoComments(maxNumComments);
         handleLastPage(maxNumComments);
 
         for (i = 0; i < numCommentsOnPage; i++) {
@@ -47,7 +48,6 @@ function handleLastPage(maxNumComments) {
     fetch('/data?num=' + maxNumComments + "&page=" + nextPage).then(response => response.json().then((comments) => {
         //if no comments on next page, then current page is last page
         if (comments.length === 0) {
-            console.log("disable");
             nextBtn.disabled = true;
         } else {
             nextBtn.disabled = false;
@@ -56,20 +56,27 @@ function handleLastPage(maxNumComments) {
 }
 
 /** Handles scenario in which page has no comments */
-function handleNoComments() {
+function handleNoComments(maxNumComments) {
     //handles case when last page has no comments
     if (numCommentsOnPage === 0) {
-        const commentsContainer = document.getElementById("video-comments-container");
-        const noComment = document.createElement('div');
-        noComment.setAttribute("class", "no-comment");
-        noComment.innerText = "No comments to display."
-        commentsContainer.appendChild(noComment);
-        // currPage = 0;
-        // fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
-        //     for (i = 0; i < comments.length; i++) {
-        //         commentElement.appendChild(createCommentElement(comments[i]));
-        //     }
-        // });
+        currPage = 0;
+        fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
+            if (comments.length === 0) {
+                const commentsContainer = document.getElementById("video-comments-container");
+                const noComment = document.createElement('div');
+                noComment.setAttribute("class", "no-comment");
+                noComment.innerText = "No comments to display."
+                commentsContainer.appendChild(noComment);
+            } else {
+                const commentElement = document.getElementById('video-comments-container');
+                commentElement.innerHTML = '';
+                handleFirstPage();
+                handleLastPage(maxNumComments);
+                for (i = 0; i < comments.length; i++) {
+                    commentElement.appendChild(createCommentElement(comments[i]));
+                }
+            }
+        });
     }
 }
 
