@@ -50,8 +50,17 @@ public class DataServlet extends HttpServlet {
 
         //get number of comments to show per page from user input and limit list of comments depending on current page
         int numComments = this.getMaxNumComments(request);
-        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments).offset(numComments*currPage));
 
+        List<Entity> limitedComments = new ArrayList<Entity>();
+
+        /* handles case when user changes items to be displayed per page and now there are no items on current page */
+        if (numComments*currPage > results.asList((FetchOptions.Builder.withLimit(Integer.MAX_VALUE))).size()){
+            //load comments on the first page if no comments on current page
+            limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
+        } else {
+            limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments).offset(numComments*currPage));
+        }
+        
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
         for (Entity entity : limitedComments){
