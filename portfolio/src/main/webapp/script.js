@@ -10,15 +10,17 @@ let numCommentsOnPage;
 
 /** Fetch comments from server and add to DOM */
 function getComments() {
-    maxNumComments = document.getElementById("num-comments").value;
+    let maxNumComments = document.getElementById("num-comments").value;
+    const languageCode = document.getElementById('language').value;
+
     if (maxNumComments === 'All') {
         maxNumComments = Number.MAX_VALUE;
     }
     let prevBtn = document.getElementById("prevBtn")
-
+    
     handleFirstPage();
 
-    fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
+    fetch('/data?num=' + maxNumComments + "&page=" + currPage + "&languageCode=" + languageCode).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         numCommentsOnPage = comments.length;
@@ -116,13 +118,6 @@ function createCommentElement(comment) {
     return commentElement;
 }
 
-/** Creates an <li> element containing text */
-function createListElement(text) {
-    const liElement = document.createElement('li');
-    liElement.innerText = text;
-    return liElement;
-}
-
 /** Deletes all the comments and calls getComments to get comments from API with all comments now deleted*/
 function deleteAll() {
     const request = new Request('/delete-data', { method: 'POST' });
@@ -164,3 +159,20 @@ function prevPage() {
     getComments();
 }
 
+// function requestTranslation(){
+//     const textContainer = document.getElementById('comment-text');
+//     const text = textContainer.value;
+//     const languageCode = document.getElementById('language').value;
+
+//     const params = new URLSearchParams();
+//     params.append('text', text);
+//     params.append('languageCode', languageCode);
+
+//     fetch('/translate', {
+//           method: 'POST',
+//           body: params
+//         }).then(response => response.text())
+//         .then((translatedMessage) => {
+//           resultContainer.innerText = translatedMessage;
+//         });
+// }

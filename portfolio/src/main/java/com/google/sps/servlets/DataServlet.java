@@ -20,6 +20,9 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +50,12 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
 
         int currPage = Integer.parseInt(request.getParameter("page"));
+        String languageCode = request.getParameter("languageCode");
 
-        //get number of comments to show per page from user input and limit list of comments depending on current page
+        /* get number of comments to show per page from user input and limit list of comments depending on current page */
         int numComments = this.getMaxNumComments(request);
         int offsetAmount;
-        //in the case that numComments is MAX_VALUE, multiplying it by even number will result in negative number and offset cannot be negative
+        /* in the case that numComments is MAX_VALUE, multiplying it by even number will result in negative number and offset cannot be negative */
         if (numComments*currPage < 0){
             offsetAmount = Integer.MAX_VALUE;
         } else {
@@ -65,6 +69,9 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : limitedComments){
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
+            // Translate translate = TranslateOptions.getDefaultInstance().getService();
+            // Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(languageCode));
+            // String translatedText = translation.getTranslatedText();
             String name = (String) entity.getProperty("name");
             String timestamp = (String) entity.getProperty("timestamp");
             Comment comment = new Comment(id, text, name, timestamp);

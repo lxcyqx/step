@@ -130,17 +130,25 @@
 
 		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
 
-        <div class = "dropdown-container">
-            <label>Comments per page: </label>
-            <select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
-                <option selected="selected" value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="All">All</option>
-            </select>
-		    <br><br>
-        </div>
-		
+		<div class="dropdown-container">
+			<select class=" dropdown" id="language" onchange="getComments()" style="width: 90px">
+      <option value="es">English</option>
+      <option value="zh">Chinese</option>
+      <option value="es">Spanish</option>
+      <option value="hi">Hindi</option>
+      <option value="ar">Arabic</option>
+    </select>
+			<span class="span-space"></span>
+			<label>Items per page: </label>
+
+			<select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
+      <option selected="selected" value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="All">All</option>
+    </select>
+
+		</div>
 
 		<div id="video-comments-container"></div>
 
@@ -154,13 +162,12 @@
 		<input id="name-box" type="text" name="name-box" placeholder="Name">
 		<br /><br />
 		<button id="submit" class="commentBtn" onclick="addComment()">Submit</button>
-
-
-
 	</div>
+
 	<br />
 	<br />
 	<br />
+
 	<div class="icons">
 		<a href="https://www.linkedin.com/in/lucyqu/" target="_blank">
 			<img class="icon" src="images/linkedin.png" />
