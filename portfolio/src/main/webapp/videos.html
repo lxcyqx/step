@@ -23,7 +23,7 @@
 				<a href="index.html">Projects</a>
 			</li>
 			<li>
-				<a href="art.html">Other</a>
+				<a href="other.html">Other</a>
 			</li>
 			<li>
 				<a href="Resume.pdf" target="blank">Resume</a>
@@ -130,45 +130,34 @@
 
 		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
 
-		<select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option selected="selected" value="All">View All Comments</option>
-        </select>
-		<br><br>
+        <div class = "dropdown-container">
+            <label>Comments per page: </label>
+            <select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
+                <option selected="selected" value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="All">All</option>
+            </select>
+		    <br><br>
+        </div>
+		
 
-		<div id="video-comments-container">
-			<!-- <div id="video-comments">
-                <div class="comment-text">Hey
-                </div>
-                <div class="comment-footer">
-                    <div class="footer-info">
-                        Lucy | Feb 2, 2013 11:32:04 PM
-                    </div>
-                </div>
-            </div>
-            <div id="video-comments">
-                <div class="comment-text">Hello</div>
-                <div class="comment-footer">
-                    <div class="footer-info">
-                        Anonymous | Feb 2, 2013 11:32:04 PM
-                    </div>
-                </div> 
-            </div> -->
+		<div id="video-comments-container"></div>
+
+		<div class="comment-controls">
+			<button id="nextBtn" class="commentBtn" onclick="nextPage()">Next</button>
+			<button id="prevBtn" class="commentBtn" onclick="prevPage()">Previous</button>
 		</div>
 
-		<form class="form" action="/data" method="POST">
-			<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
+		<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
 
-			<input id="name-box" type="text" name="name-box" placeholder="Name">
-			<br /><br />
+		<input id="name-box" type="text" name="name-box" placeholder="Name">
+		<br /><br />
+		<button id="submit" class="commentBtn" onclick="addComment()">Submit</button>
 
-			<input type="submit" />
-        </form>
+
+
 	</div>
-
-
 	<br />
 	<br />
 	<br />

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Integer;
 import java.util.Date;
+import java.lang.Math;
 import java.text.SimpleDateFormat; 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,9 +35,10 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet responsible for displaying comment data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //by default comments ordered by timestamp
@@ -44,9 +46,19 @@ public class DataServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
-        //get number of max comments to show from user input and limit list of comments
+        int currPage = Integer.parseInt(request.getParameter("page"));
+
+        //get number of comments to show per page from user input and limit list of comments depending on current page
         int numComments = this.getMaxNumComments(request);
-        List<Entity> limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments));
+        int offsetAmount;
+        //in the case that numComments is MAX_VALUE, multiplying it by even number will result in negative number and offset cannot be negative
+        if (numComments*currPage < 0){
+            offsetAmount = Integer.MAX_VALUE;
+        } else {
+            offsetAmount = numComments*currPage;
+        }
+        
+        List<Entity> limitedComments = limitedComments = results.asList(FetchOptions.Builder.withLimit(numComments).offset(offsetAmount));
         
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
@@ -66,31 +78,8 @@ public class DataServlet extends HttpServlet {
         response.getWriter().println(json);
     }
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        //get comment from input box along with name and timestamp
-        String text = request.getParameter("comment-box");        
-        String name = request.getParameter("name-box");
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        //if user entered a comment
-        if (!text.equals("")){
-            //create comment entity
-            Entity commentEntity = new Entity("Comment");
-            commentEntity.setProperty("text", text);
-            commentEntity.setProperty("name", name);
-            commentEntity.setProperty("timestamp", timestamp);
-
-            //store entity in database
-            DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-            datastore.put(commentEntity);
-        }
-        //redirect to HTML page
-        response.sendRedirect("/videos.html#comment-box");
-    }
-
     /** 
-    * Get number of comments user wants to display.
+    * Get number of comments user wants to display per page of comments.
     *
     * @param HTTP request
     * @return number of comments to be displayed

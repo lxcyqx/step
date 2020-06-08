@@ -44,7 +44,6 @@ textarea {
 
 input[type="text"] {
   border: none;
-  padding: 10px;
   width: calc(100% - 30px);
   outline: none;
   font-family: Verdana;
@@ -54,6 +53,16 @@ input[type="text"] {
 
 #video-comments-container {
   margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.no-comment{
+  text-align: center;
+  font-style: italic;
+  font-family: Verdana;
+  color: #888;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .comment-text {
@@ -81,36 +90,57 @@ input[type="text"] {
   color: #484848;
 }
 
-input[type="submit"] {
-  width: 120px;
+.comment-controls {
+  padding-bottom: 1rem;
+}
+
+#prevBtn{
+    margin-right: 10px;
+}
+
+#nextBtn:disabled, #prevBtn:disabled{
+    background-color: #888;
+}
+
+.commentBtn {
   background-color: #747fe0;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 10px 18px;
+  margin: 4px 0 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: auto;
   float: right;
   font-family: Verdana;
-  outline: none;
+  outline:none;
   font-size: 14px;
 }
 
-input[type="submit"]:hover {
-  background-color: #4352de;
+.commentBtn:hover {
+    background-color: #4352de;
+}
+
+label {
+  font-family: Verdana;
+  color: #acb4c2;
+  outline: none;
+  font-size: 13px;
+}
+
+.dropdown-container{
+  float: right;
 }
 
 .dropdown {
-  width: 200px;
+  display: inline-block;
+  width: 75px;
   background-color: #747fe0;
   color: white;
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: auto 20px;
-  float: right;
+  margin-left: 10px;
   font-family: Verdana;
   outline: none;
   font-size: 13px;
@@ -133,7 +163,7 @@ input[type="submit"]:hover {
     width: calc(100%-10px);
   }
   
-  input[type="submit"] {
+  #submit {
     width: calc(100%);
   }
 }
