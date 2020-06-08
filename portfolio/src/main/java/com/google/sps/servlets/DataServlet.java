@@ -69,9 +69,11 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : limitedComments){
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
+            System.out.println(text  + "---------------------------------");
             // Translate translate = TranslateOptions.getDefaultInstance().getService();
-            // Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(languageCode));
+            // Translation translation = translate.translate(text,         Translate.TranslateOption.targetLanguage(languageCode));
             // String translatedText = translation.getTranslatedText();
+            // System.out.println(translatedText);
             String name = (String) entity.getProperty("name");
             String timestamp = (String) entity.getProperty("timestamp");
             Comment comment = new Comment(id, text, name, timestamp);
