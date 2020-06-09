@@ -7,7 +7,6 @@ google.charts.setOnLoadCallback(getChart);
 
 
 function getChart(){
-  console.log("in get chart");
   const chartType = document.getElementById("chart-type").value;
   if (chartType === "GeoMap"){
     drawMarkersMap();
@@ -18,7 +17,6 @@ function getChart(){
 }
 /** Create map that includes Japan's city and population information using GeoMap, which makes use of Google Charts API, Maps API, and Geocoding API */
 function drawMarkersMap() {
-  console.log("in draw markers map");
   fetch('/japan-population').then(response => response.json()).then((cityPopulations) => {
     const data = new google.visualization.DataTable();
     data.addColumn('string', 'City');
@@ -42,7 +40,6 @@ google.charts.load('current', { 'packages': ['corechart'] });
 // google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  console.log("in drawChart");
   const data = google.visualization.arrayToDataTable([
     ['Year', 'Sales', 'Expenses'],
     ['2004', 1000, 400],
