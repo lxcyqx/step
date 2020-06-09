@@ -6,29 +6,24 @@ google.charts.setOnLoadCallback(drawMarkersMap);
 
 
 function drawMarkersMap() {
-    var data = google.visualization.arrayToDataTable([
-        ['City', 'Population', 'Area'],
-        ['Rome', 2761477, 1285.31],
-        ['Milan', 1324110, 181.76],
-        ['Naples', 959574, 117.27],
-        ['Turin', 907563, 130.17],
-        ['Palermo', 655875, 158.9],
-        ['Genoa', 607906, 243.60],
-        ['Bologna', 380181, 140.7],
-        ['Florence', 371282, 102.41],
-        ['Fiumicino', 67370, 213.44],
-        ['Anzio', 52192, 43.43],
-        ['Ciampino', 38262, 11]
-    ]);
 
-    var options = {
-        region: 'IT',
+    fetch('/japan-population').then(response => response.json()).then((cityPopulations) => {
+      const data = new google.visualization.DataTable();
+      data.addColumn('string', 'City');
+      data.addColumn('number', 'Population');
+      Object.keys(cityPopulations).forEach((city) => {
+        data.addRow([city, cityPopulations[city]]);
+      });
+
+      const options = {
+        region: 'JP',
         displayMode: 'markers',
-        colorAxis: { colors: ['green', 'blue'] }
-    };
+        colorAxis: { colors: ['blue', 'red'] }
+      };
 
-    var chart = new google.visualization.GeoChart(document.getElementById('chart'));
-    chart.draw(data, options);
+      const chart = new google.visualization.GeoChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    });
 }
 
 /** Fetch quote from server and add to DOM */
