@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/japan-population")
 public class JapanPopulationServlet extends HttpServlet {
 
+  /* LinkedHashMap with predictable interation order so larger cities show up on the map first */
   private LinkedHashMap<String, Integer> populationMap = new LinkedHashMap<>();
 
   @Override
