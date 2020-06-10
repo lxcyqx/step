@@ -21,6 +21,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import com.google.gson.Gson;
 
 @WebServlet("/auth")
 public class AuthenticationServlet extends HttpServlet {
@@ -28,21 +30,29 @@ public class AuthenticationServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
+    HashMap<String, String> responseMap = new HashMap<>();
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/auth";
+      String urlToRedirectToAfterUserLogsOut = "/videos.html";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-      response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+      responseMap.put("email", userEmail);
+      responseMap.put("isLoggedIn", "true");
+      responseMap.put("logoutUrl", logoutUrl);
+
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/auth";
+      String urlToRedirectToAfterUserLogsIn = "/videos.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      response.getWriter().println("<p>Hello stranger.</p>");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      responseMap.put("isLoggedIn", "false");
+      responseMap.put("loginUrl", loginUrl);
     }
+
+    Gson gson = new Gson();
+    String json = gson.toJson(responseMap);
+    response.setContentType("application/json");
+    response.getWriter().println(json);
   }
 }

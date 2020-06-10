@@ -5,13 +5,13 @@ public class Comment {
     String text;
     String name;
     String timestamp;
-    // String translatedText;
+    String email;
 
-    public Comment(long id, String text, String name, String timestamp){
+    public Comment(long id, String text, String name, String timestamp, String email){
         this.id = id;
         this.text = text;
         this.name = name;
         this.timestamp = timestamp;
-        // this.translatedText = translatedText;
+        this.email = email;
     }
 }

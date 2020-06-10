@@ -7,6 +7,7 @@ function getRandomQuote() {
 
 let currPage = 0;
 let numCommentsOnPage;
+let userEmail;
 
 /** Fetch comments from server and add to DOM */
 function getComments() {
@@ -107,11 +108,12 @@ function createCommentElement(comment) {
     const footerInfo = document.createElement('div');
     footerInfo.setAttribute("class", "footer-info");
     //if user did not provide name, set name as anonymous
-    if (comment.name.trim() === '') {
-        footerInfo.innerText = "Anonymous" + " | " + comment.timestamp;
-    } else {
-        footerInfo.innerText = comment.name + " | " + comment.timestamp;
-    }
+    // if (comment.name.trim() === '') {
+    //     footerInfo.innerText = "Anonymous" + " | " + comment.timestamp;
+    // } else {
+    //     footerInfo.innerText = comment.name + " | " + comment.timestamp;
+    // }
+    footerInfo.innerText = comment.email + " | " + comment.timestamp;
     commentFooter.appendChild(footerInfo);
     commentElement.appendChild(commentFooter);
     return commentElement;
@@ -137,11 +139,11 @@ function deleteComment(comment) {
 /** Add user's comment */
 function addComment() {
     let text = document.getElementById("comment-box").value;
-    let name = document.getElementById("name-box").value;
+    // let name = document.getElementById("name-box").value;
     //if comment input is empty, can't submit
     if (text.trim() === '') return;
     document.getElementById("comment-box").value = '';
-    fetch('add-comment?comment-text=' + text + '&name=' + name, { method: 'POST' });
+    fetch('add-comment?comment-text=' + text + '&name=' + name + '&email=' + userEmail, { method: 'POST' });
 
     setTimeout(getComments, 500);
 }
@@ -156,4 +158,44 @@ function nextPage() {
 function prevPage() {
     currPage--;
     getComments();
+}
+
+function getLoginStatus(){
+  console.log("in get login status");
+  const commentSection = document.getElementById("comment-box");
+  const nameSection = document.getElementById("name-box");
+  const submitButton = document.getElementById("submit");
+
+  fetch('/auth').then(response => response.json()).then((userInfo) => {
+    const loginStatusElement = document.getElementById("login-status");
+    loginStatusElement.innerHTML = "";
+
+    if (userInfo.isLoggedIn === "true"){
+      const logoutElement = document.createElement('a');
+      logoutElement.innerHTML = "Log Out";
+      logoutElement.href = userInfo.logoutUrl;
+
+      loginStatusElement.appendChild(logoutElement);
+      userEmail = userInfo.email;
+
+      commentSection.style.display = "block";
+      submitButton.style.display = "block";
+    } else {
+      const loginElement = document.createElement('a');
+      loginElement.innerHTML = "Log In";
+      loginElement.href = userInfo.loginUrl;
+
+      const textElement = document.createElement('p');
+      textElement.innerHTML = "Sign in to add comments";
+
+      loginStatusElement.appendChild(loginElement);
+      loginStatusElement.appendChild(textElement);
+
+      userEmail = null;
+      commentSection.style.display = "none";
+      submitButton.style.display = "none";
+    }
+  });
+
+  getComments();
 }

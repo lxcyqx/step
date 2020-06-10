@@ -12,7 +12,7 @@
 	<title>Lucy Qu - Videos</title>
 </head>
 
-<body onload="getComments()">
+<body onload="getLoginStatus()">
 	<nav>
 		<div class="logo">
 			<a href="index.html">Lucy Qu</a>
@@ -151,9 +151,11 @@
 
 		<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
 
-		<input id="name-box" type="text" name="name-box" placeholder="Name">
+		<!-- <input id="name-box" type="text" name="name-box" placeholder="Name"> -->
 		<br /><br />
 		<button id="submit" class="commentBtn" onclick="addComment()">Submit</button>
+
+    <div id="login-status"></div>
 	</div>
 
 	<br />
