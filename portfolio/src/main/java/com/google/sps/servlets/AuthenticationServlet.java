@@ -35,7 +35,7 @@ public class AuthenticationServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/videos.html";
+      String urlToRedirectToAfterUserLogsOut = "/videos.html#comment-box";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
       responseMap.put("email", userEmail);
@@ -43,7 +43,7 @@ public class AuthenticationServlet extends HttpServlet {
       responseMap.put("logoutUrl", logoutUrl);
 
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/videos.html";
+      String urlToRedirectToAfterUserLogsIn = "/videos.html#comment-box";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
       responseMap.put("isLoggedIn", "false");
