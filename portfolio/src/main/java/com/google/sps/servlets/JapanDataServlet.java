@@ -9,17 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Returns Japan city population as a JSON object, e.g. {"Tokyo": 1000000, "Kyoto": 200000}] */
-@WebServlet("/japan-population")
-public class JapanPopulationServlet extends HttpServlet {
+@WebServlet("/japan-data")
+public class JapanDataServlet extends HttpServlet {
 
-  /* LinkedHashMap with predictable interation order so larger cities show up on the map first */
   private LinkedHashMap<String, Integer> populationMap = new LinkedHashMap<>();
 
-  @Override
-  public void init() {
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream(
-        "/WEB-INF/jp-city-population.csv"));
+  public void getData(Scanner scanner) {
     while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
@@ -27,6 +22,7 @@ public class JapanPopulationServlet extends HttpServlet {
       String city = String.valueOf(cells[0]);
       if (cells.length > 1){
         Integer population = Integer.valueOf(cells[1]);
+        System.out.println(city);
         populationMap.put(city, population);
       }
     }
@@ -35,6 +31,18 @@ public class JapanPopulationServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String dataType = request.getParameter("dataType");
+    Scanner scanner = null;
+    if (dataType.equals("population")){
+      scanner = new Scanner(getServletContext().getResourceAsStream(
+        "/WEB-INF/jp-city-population.csv")); 
+    } else if (dataType.equals("lifeExpectancy")){
+      scanner = new Scanner(getServletContext().getResourceAsStream(
+        "/WEB-INF/jp-life-expectancy.csv")); 
+    }
+    if (scanner!= null){
+      getData(scanner);
+    }
     response.setContentType("application/json");
     Gson gson = new Gson();
     String json = gson.toJson(populationMap);

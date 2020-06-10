@@ -6,11 +6,11 @@ google.charts.load('current', {
 google.charts.setOnLoadCallback(getChart);
 
 
-function getChart(){
+function getChart() {
   const chartType = document.getElementById("chart-type").value;
-  if (chartType === "GeoMap"){
+  if (chartType === "GeoMap") {
     drawMarkersMap();
-  } else if (chartType === "LineChart"){
+  } else if (chartType === "LineChart") {
     drawChart();
   }
 
@@ -26,6 +26,7 @@ function drawMarkersMap() {
     });
 
     const options = {
+      title: 'Population of Japan\'s Largest Cities',
       region: 'JP',
       displayMode: 'markers',
       colorAxis: { colors: ['blue', 'red'] }
@@ -40,23 +41,25 @@ google.charts.load('current', { 'packages': ['corechart'] });
 // google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  const data = google.visualization.arrayToDataTable([
-    ['Year', 'Sales', 'Expenses'],
-    ['2004', 1000, 400],
-    ['2005', 1170, 460],
-    ['2006', 660, 1120],
-    ['2007', 1030, 540]
-  ]);
+  console.log("in draw chart");
+  fetch('/life-expectancy').then(response => response.json())
+    .then((lifeExpectancy) => {
+      const data = new google.visualization.DataTable();
+      data.addColumn('string', 'Year');
+      data.addColumn('number', 'Life Expectancy');
+      Object.keys(lifeExpectancy).forEach((year) => {
+        console.log(year + " " + typeof year);
+        data.addRow([year, lifeExpectancy[year]]);
+      });
+      const options = {
+        title: 'Japan Life Expectancy',
+        legend: { position: 'bottom' }
+      };
 
-  const options = {
-    title: 'Company Performance',
-    curveType: 'function',
-    legend: { position: 'bottom' }
-  };
+      const lineChart = new google.visualization.LineChart(document.getElementById('chart'));
 
-  const lineChart = new google.visualization.LineChart(document.getElementById('chart'));
-
-  lineChart.draw(data, options);
+      lineChart.draw(data, options);
+    });
 }
 
 /** Fetch quote from server and add to DOM */
