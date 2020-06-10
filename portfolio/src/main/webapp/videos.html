@@ -131,14 +131,6 @@
 		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
 
 		<div class="dropdown-container">
-			<select class=" dropdown" id="language" onchange="getComments()" style="width: 90px">
-      <option value="es">English</option>
-      <option value="zh">Chinese</option>
-      <option value="es">Spanish</option>
-      <option value="hi">Hindi</option>
-      <option value="ar">Arabic</option>
-    </select>
-			<span class="span-space"></span>
 			<label>Items per page: </label>
 
 			<select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
@@ -167,25 +159,6 @@
 	<br />
 	<br />
 	<br />
-
-
-	<h1>Translation</h1>
-	<p>Type a message and select a language, then click submit to translate it.</p>
-
-	<textarea id="text"></textarea>
-
-	<select id="language">
-      <option value="es">English</option>
-      <option value="zh">Chinese</option>
-      <option value="es">Spanish</option>
-      <option value="hi">Hindi</option>
-      <option value="ar">Arabic</option>
-    </select>
-
-	<button onclick="requestTranslation();">Translate</button>
-
-	<hr />
-	<div id="result"></div>
 
 
 	<div class="icons">

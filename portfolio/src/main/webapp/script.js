@@ -11,7 +11,6 @@ let numCommentsOnPage;
 /** Fetch comments from server and add to DOM */
 function getComments() {
     let maxNumComments = document.getElementById("num-comments").value;
-    const languageCode = document.getElementById('language').value;
 
     if (maxNumComments === 'All') {
         maxNumComments = Number.MAX_VALUE;
@@ -20,7 +19,7 @@ function getComments() {
     
     handleFirstPage();
 
-    fetch('/data?num=' + maxNumComments + "&page=" + currPage + "&languageCode=" + languageCode).then(response => response.json()).then((comments) => {
+    fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById('video-comments-container');
         commentElement.innerHTML = '';
         numCommentsOnPage = comments.length;
