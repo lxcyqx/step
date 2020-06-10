@@ -36,22 +36,16 @@
       <version>1.9.59</version>
     </dependency>
 
-    <dependency>
+    <!-- <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>22.0</version>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-translate</artifactId>
       <version>1.70.0</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>com.google</artifactId>
-          <groupId>guava</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
   </dependencies>

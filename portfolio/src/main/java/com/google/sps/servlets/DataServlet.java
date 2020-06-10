@@ -66,11 +66,12 @@ public class DataServlet extends HttpServlet {
         
         //add entity to list of comments
         List<Comment> commentsList = new ArrayList<Comment>();
+        // Translate translate = TranslateOptions.getDefaultInstance().getService();
         for (Entity entity : limitedComments){
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
             // System.out.println(text  + "---------------------------------");
-            // Translate translate = TranslateOptions.getDefaultInstance().getService();
+  
             // Translation translation = translate.translate(text,         Translate.TranslateOption.targetLanguage(languageCode));
             // String translatedText = translation.getTranslatedText();
             // System.out.println("!!!!!!!!!!!!!!1");

@@ -159,40 +159,22 @@ function prevPage() {
     getComments();
 }
 
-// function requestTranslation(){
-//     const textContainer = document.getElementById('comment-text');
-//     const text = textContainer.value;
-//     const languageCode = document.getElementById('language').value;
-
-//     const params = new URLSearchParams();
-//     params.append('text', text);
-//     params.append('languageCode', languageCode);
-
-//     fetch('/translate', {
-//           method: 'POST',
-//           body: params
-//         }).then(response => response.text())
-//         .then((translatedMessage) => {
-//           resultContainer.innerText = translatedMessage;
-//         });
-// }
-
 function requestTranslation() {
-        const text = document.getElementById('text').value;
-        const languageCode = document.getElementById('language').value;
+  const text = document.getElementById('text').value;
+  const languageCode = document.getElementById('language').value;
 
-        const resultContainer = document.getElementById('result');
-        resultContainer.innerText = 'Loading...';
+  const resultContainer = document.getElementById('result');
+  resultContainer.innerText = 'Loading...';
 
-        const params = new URLSearchParams();
-        params.append('text', text);
-        params.append('languageCode', languageCode);
+  const params = new URLSearchParams();
+  params.append('text', text);
+  params.append('languageCode', languageCode);
 
-        fetch('/translate', {
-          method: 'POST',
-          body: params
-        }).then(response => response.text())
-        .then((translatedMessage) => {
-          resultContainer.innerText = translatedMessage;
-        });
-      }
+  fetch('/translate', {
+    method: 'POST',
+    body: params
+  }).then(response => response.text())
+    .then((translatedMessage) => {
+      resultContainer.innerText = translatedMessage;
+  });
+}
