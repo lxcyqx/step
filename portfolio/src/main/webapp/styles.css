@@ -29,6 +29,10 @@ body {
   font-size: 13px;
 }
 
+.dropdown.chart {
+  width: 200px;
+}
+
 .dropdown:hover {
   background-color: #888;
 }
