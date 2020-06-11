@@ -10,7 +10,7 @@ body {
   background-color: #fffcf8;
 }
 
-.dropdown-container{
+.dropdown-container {
   float: right;
 }
 
@@ -34,16 +34,16 @@ body {
 }
 
 #chart {
-  width: 800px; 
+  width: 800px;
   height: 433px;
 }
 
 #quote-container {
-    font-style: italic;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 16px;
-    text-align: center;
-    margin: 0px auto 50px auto;
+  font-style: italic;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  margin: 0px auto 50px auto;
 }
 
 .header {
@@ -459,7 +459,6 @@ table {
 }
 
 .nav-active {
-  /* transform: translate(0%); */
   opacity: 1;
   display: flex;
   z-index: 1000;
@@ -527,7 +526,7 @@ table {
 }
 @media (max-width: 800px) {
   #chart {
-    width: 400px; 
+    width: 400px;
     height: 233px;
   }
 
