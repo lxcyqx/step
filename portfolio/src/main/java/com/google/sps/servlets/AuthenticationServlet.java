@@ -45,16 +45,14 @@ public class AuthenticationServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       final String userEmail = userService.getCurrentUser().getEmail();
-      final String urlToRedirectToAfterUserLogsOut = REDIRECTION_URL;
-      final String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      final String logoutUrl = userService.createLogoutURL(REDIRECTION_URL);
 
       responseMap.put("email", userEmail);
       responseMap.put("isLoggedIn", "true");
       responseMap.put("logoutUrl", logoutUrl);
 
     } else {
-      final String urlToRedirectToAfterUserLogsIn = REDIRECTION_URL;
-      final String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      final String loginUrl = userService.createLoginURL(REDIRECTION_URL);
 
       responseMap.put("isLoggedIn", "false");
       responseMap.put("loginUrl", loginUrl);
