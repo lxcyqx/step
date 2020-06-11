@@ -74,7 +74,8 @@ function handleLastPage(maxNumComments) {
 }
 
 /**
- * Handles scenario in which page has no comments, either when there are no comments in general or when there are no
+ * Handles scenario in which page has no comments, either when there are no  
+ * comments in general or when there are no
  * comments on current page due to page size change.
  * @param {number} maxNumComments
  */
@@ -119,14 +120,16 @@ function handleNoComments(maxNumComments) {
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.setAttribute("id", "video-comments");
-  //add delete button
-  const deleteButton = document.createElement("button");
-  deleteButton.setAttribute("class", "delete");
-  deleteButton.addEventListener("click", () => {
-    deleteComment(comment);
-  });
-  deleteButton.innerText = "Delete";
-  commentElement.appendChild(deleteButton);
+  //add delete button to comments made by user
+  if (userEmail === comment.email){
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "delete");
+    deleteButton.addEventListener("click", () => {
+      deleteComment(comment);
+    });
+    deleteButton.innerText = "Delete";
+    commentElement.appendChild(deleteButton);
+  }
   //add comment text
   const commentText = document.createElement("div");
   commentText.setAttribute("class", "comment-text");
@@ -144,7 +147,7 @@ function createCommentElement(comment) {
 }
 
 /**
- * Deletes all the comments and calls getComments to get comments from API with all comments now deleted.
+ * Deletes all the comments and calls getComments to get comments from API with * all comments now deleted.
  */
 function deleteAll() {
   const request = new Request("/delete-data", { method: "POST" });
