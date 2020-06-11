@@ -70,10 +70,9 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : limitedComments){
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
-            String name = (String) entity.getProperty("name");
             String timestamp = (String) entity.getProperty("timestamp");
             String email = (String) entity.getProperty("email");
-            Comment comment = new Comment(id, text, name, timestamp, email);
+            Comment comment = new Comment(id, text, timestamp, email);
             commentsList.add(comment);
         }
 

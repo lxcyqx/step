@@ -120,7 +120,7 @@ function handleNoComments(maxNumComments) {
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.setAttribute("id", "video-comments");
-  //add delete button to comments made by user
+  //add delete button to comments made by
   if (userEmail === comment.email){
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("class", "delete");
@@ -140,7 +140,7 @@ function createCommentElement(comment) {
   commentFooter.setAttribute("class", "comment-footer");
   const footerInfo = document.createElement("div");
   footerInfo.setAttribute("class", "footer-info");
-  footerInfo.innerText = comment.email + " | " + comment.timestamp;
+  footerInfo.innerText = comment.email.split("@")[0] + " | " + comment.timestamp;
   commentFooter.appendChild(footerInfo);
   commentElement.appendChild(commentFooter);
   return commentElement;
@@ -179,8 +179,6 @@ function addComment() {
   fetch(
     "add-comment?comment-text=" +
       text +
-      "&name=" +
-      name +
       "&email=" +
       userEmail,
     { method: "POST" }
@@ -218,7 +216,9 @@ function getLoginStatus() {
       const loginStatusElement = document.getElementById("login-status");
       loginStatusElement.innerHTML = "";
 
+      //if user is logged in, show comment section
       if (userInfo.isLoggedIn === "true") {
+        //allow user to log out
         const logoutElement = document.createElement("a");
         logoutElement.innerHTML = "Log Out";
         logoutElement.href = userInfo.logoutUrl;
@@ -229,21 +229,24 @@ function getLoginStatus() {
         commentSection.style.display = "block";
         submitButton.style.display = "block";
       } else {
+        //allow user to log in
         const loginElement = document.createElement("a");
         loginElement.innerHTML = "Log In";
         loginElement.href = userInfo.loginUrl;
 
         const textElement = document.createElement("p");
-        textElement.innerHTML = "Sign in to add comments";
+        textElement.innerHTML = " to add comments";
+        textElement.style.display = "inline"
 
         loginStatusElement.appendChild(loginElement);
         loginStatusElement.appendChild(textElement);
 
         userEmail = null;
+        //hide comment section
         commentSection.style.display = "none";
         submitButton.style.display = "none";
       }
     });
-
+    
   getComments();
 }
