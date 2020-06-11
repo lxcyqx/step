@@ -14,18 +14,28 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 
+/**
+ * Handles user email authentication for the comment section.
+ *
+ * @author lucyqu
+ *
+ */
 @WebServlet("/auth")
 public class AuthenticationServlet extends HttpServlet {
+
+  static final String REDIRECTION_URL = "/videos.html#comment-box";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,17 +44,17 @@ public class AuthenticationServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/videos.html#comment-box";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      final String userEmail = userService.getCurrentUser().getEmail();
+      final String urlToRedirectToAfterUserLogsOut = REDIRECTION_URL;
+      final String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
       responseMap.put("email", userEmail);
       responseMap.put("isLoggedIn", "true");
       responseMap.put("logoutUrl", logoutUrl);
 
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/videos.html#comment-box";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      final String urlToRedirectToAfterUserLogsIn = REDIRECTION_URL;
+      final String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
       responseMap.put("isLoggedIn", "false");
       responseMap.put("loginUrl", loginUrl);
