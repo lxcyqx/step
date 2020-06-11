@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 @WebServlet("/auth")
 public class AuthenticationServlet extends HttpServlet {
 
+  // URL to redirect to after user logs in or out
   static final String REDIRECTION_URL = "/videos.html#comment-box";
 
   @Override

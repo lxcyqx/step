@@ -35,7 +35,7 @@ import com.google.sps.data.Comment;
 
 /**
  * Servlet responsible for displaying comment data.
- * 
+ *
  * @author lucyqu
  *
  */
@@ -90,7 +90,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * Get number of comments user wants to display per page of comments.
+   * Gets number of comments user wants to display per page of comments.
    *
    * @param HTTP request
    * @return number of comments to be displayed
