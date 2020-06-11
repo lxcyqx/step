@@ -1,11 +1,11 @@
 package com.google.sps.data;
 
 public class Comment {
-    long id;
-    String text;
-    String name;
-    String timestamp;
-    String email;
+    private final long id;
+    private final String text;
+    private final String name;
+    private final String timestamp;
+    private final String email;
 
     public Comment(long id, String text, String name, String timestamp, String email){
         this.id = id;

@@ -57,11 +57,11 @@ function handleLastPage(maxNumComments) {
     }))
 }
 
-/** Handles scenario in which page has no comments, either when there are no comments in general or when there are no comments on current page due to page size change */
+/* Handles scenario in which page has no comments, either when there are no comments in general or when there are no comments on current page due to page size change. */
 function handleNoComments(maxNumComments) {
     //handles case when last page has no comments
     if (numCommentsOnPage === 0) {
-        //set current page to 0 and fetch comments that would be displayed on first page
+        /* Set current page to 0 and fetch comments that would be displayed on   * first page. */
         currPage = 0;
         fetch('/data?num=' + maxNumComments + "&page=" + currPage).then(response => response.json()).then((comments) => {
             //if there aren't any comments at all, add message
@@ -107,12 +107,6 @@ function createCommentElement(comment) {
     commentFooter.setAttribute("class", "comment-footer");
     const footerInfo = document.createElement('div');
     footerInfo.setAttribute("class", "footer-info");
-    //if user did not provide name, set name as anonymous
-    // if (comment.name.trim() === '') {
-    //     footerInfo.innerText = "Anonymous" + " | " + comment.timestamp;
-    // } else {
-    //     footerInfo.innerText = comment.name + " | " + comment.timestamp;
-    // }
     footerInfo.innerText = comment.email + " | " + comment.timestamp;
     commentFooter.appendChild(footerInfo);
     commentElement.appendChild(commentFooter);
@@ -139,7 +133,6 @@ function deleteComment(comment) {
 /** Add user's comment */
 function addComment() {
     let text = document.getElementById("comment-box").value;
-    // let name = document.getElementById("name-box").value;
     //if comment input is empty, can't submit
     if (text.trim() === '') return;
     document.getElementById("comment-box").value = '';
