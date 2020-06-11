@@ -150,6 +150,12 @@ label {
   background-color: #888;
 }
 
+.span-space{
+    content:" "; 
+    display:inline-block; 
+    width:20px;
+}
+
 @media (max-width: 800px) {
   .comment-container {
     padding: 20px 10px 100px 10px;

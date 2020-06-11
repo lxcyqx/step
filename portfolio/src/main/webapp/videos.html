@@ -1,180 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link rel="shortcut icon" href="images/logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="comments.css" />
+    <script src="script.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lucy Qu - Videos</title>
+  </head>
 
-<head>
-	<link rel="shortcut icon" href="images/logo.png" />
-	<link rel="stylesheet" href="styles.css" />
-	<link rel="stylesheet" href="comments.css" />
-	<script src="script.js"></script>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>Lucy Qu - Videos</title>
-</head>
+  <body onload="getLoginStatus()">
+    <nav>
+      <div class="logo">
+        <a href="index.html">Lucy Qu</a>
+      </div>
 
-<body onload="getComments()">
-	<nav>
-		<div class="logo">
-			<a href="index.html">Lucy Qu</a>
-		</div>
+      <ul class="nav-links white">
+        <li>
+          <a href="index.html">Projects</a>
+        </li>
+        <li>
+          <a href="other.html">Other</a>
+        </li>
+        <li>
+          <a href="Resume.pdf" target="blank">Resume</a>
+        </li>
+        <li>
+          <a href="about.html">About</a>
+        </li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
 
-		<ul class="nav-links white">
-			<li>
-				<a href="index.html">Projects</a>
-			</li>
-			<li>
-				<a href="other.html">Other</a>
-			</li>
-			<li>
-				<a href="Resume.pdf" target="blank">Resume</a>
-			</li>
-			<li>
-				<a href="about.html">About</a>
-			</li>
-		</ul>
-		<div class="burger">
-			<div class="line1"></div>
-			<div class="line2"></div>
-			<div class="line3"></div>
-		</div>
-	</nav>
-
-	<div class="outer-container">
-		<div class="container">
-			<div class="subtitle">
-				Videos
-			</div>
-			<div class="body-text centered">
-				Here are some videos I've made for the memories.
-			</div>
-			<br />
-
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/gh0lx38C4jo" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/7fQYh1t7P8w" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/UZUvWeRYTio" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/L4If76gOWpc" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/ln0dd6smbts" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/NIzk7ilzItE" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/-fsQcy99sEg" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-			<br />
-			<br />
-			<div class="videowrapper">
-				<center>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/vpEtNZs70_8" frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen></iframe>
-				</center>
-			</div>
-		</div>
-	</div>
-
-	<br />
-	<br />
-
-	<!-- comments section -->
-	<div class="comment-container">
-
-		<button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
-
-        <div class = "dropdown-container">
-            <label>Comments per page: </label>
-            <select class="dropdown" onchange="getComments()" name="num-comments" id="num-comments">
-                <option selected="selected" value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="All">All</option>
-            </select>
-		    <br><br>
+    <div class="outer-container">
+      <div class="container">
+        <div class="subtitle">
+          Videos
         </div>
-		
+        <div class="body-text centered">
+          Here are some videos I've made for the memories.
+        </div>
+        <br />
 
-		<div id="video-comments-container"></div>
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/gh0lx38C4jo"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/7fQYh1t7P8w"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/UZUvWeRYTio"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/L4If76gOWpc"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/ln0dd6smbts"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/NIzk7ilzItE"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/-fsQcy99sEg"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+        <br />
+        <br />
+        <div class="videowrapper">
+          <center>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/vpEtNZs70_8"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </div>
+      </div>
+    </div>
 
-		<div class="comment-controls">
-			<button id="nextBtn" class="commentBtn" onclick="nextPage()">Next</button>
-			<button id="prevBtn" class="commentBtn" onclick="prevPage()">Previous</button>
-		</div>
+    <br />
+    <br />
 
-		<textarea id="comment-box" name="comment-box" rows="10" cols="30" placeholder="Add comment..."></textarea>
+    <!-- comments section -->
+    <div class="comment-container">
+      <button id="delete-all" onclick="deleteAll()">Delete All Comments</button>
 
-		<input id="name-box" type="text" name="name-box" placeholder="Name">
-		<br /><br />
-		<button id="submit" class="commentBtn" onclick="addComment()">Submit</button>
+      <div class="dropdown-container">
+        <label>Items per page: </label>
 
+        <select
+          class="dropdown"
+          onchange="getComments()"
+          name="num-comments"
+          id="num-comments"
+        >
+          <option selected="selected" value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="All">All</option>
+        </select>
+      </div>
 
+      <div id="video-comments-container"></div>
 
-	</div>
-	<br />
-	<br />
-	<br />
-	<div class="icons">
-		<a href="https://www.linkedin.com/in/lucyqu/" target="_blank">
-			<img class="icon" src="images/linkedin.png" />
+      <div class="comment-controls">
+        <button id="nextBtn" class="commentBtn" onclick="nextPage()">
+          Next
+        </button>
+        <button id="prevBtn" class="commentBtn" onclick="prevPage()">
+          Previous
+        </button>
+      </div>
+
+      <textarea
+        id="comment-box"
+        name="comment-box"
+        rows="10"
+        cols="30"
+        placeholder="Add comment..."
+      ></textarea>
+
+      <br /><br />
+      <button id="submit" class="commentBtn" onclick="addComment()">
+        Submit
+      </button>
+
+      <div id="login-status"></div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="icons">
+      <a href="https://www.linkedin.com/in/lucyqu/" target="_blank">
+        <img class="icon" src="images/linkedin.png" />
       </a>
-			<a href="mailto:lucy_qu@brown.edu" target="_blank">
-				<img class="icon" src="images/email.png" />
+      <a href="mailto:lucy_qu@brown.edu" target="_blank">
+        <img class="icon" src="images/email.png" />
       </a>
-				<a href="https://github.com/lxcyqx" target="_blank">
-					<img class="icon" src="images/github.png" />
+      <a href="https://github.com/lxcyqx" target="_blank">
+        <img class="icon" src="images/github.png" />
       </a>
-	</div>
-	<footer class="footer">Made by Lucy Qu © 2020</footer>
-	<br />
-	<script src="app.js"></script>
-</body>
-
+    </div>
+    <footer class="footer">Made by Lucy Qu © 2020</footer>
+    <br />
+    <script src="app.js"></script>
+  </body>
 </html>
