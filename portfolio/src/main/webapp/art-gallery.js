@@ -24,33 +24,36 @@ let getLatestOpenedImgIndex;
 let frames = document.querySelectorAll(".art-container");
 
 function init() {
-    if (frames) {
-        frames.forEach(function(frame, index) {
-            frame.onclick = function() {
-            let imageName = frame.children[0].src.split("images/fine-art/thumbnails/")[1];
-            getLatestOpenedImgIndex = imagesArray.indexOf(imageName);
-            let container = document.body;
-            let newImageWindow = document.createElement("div");
-            container.appendChild(newImageWindow);
-            newImageWindow.setAttribute("class", "img-window");
-            newImageWindow.setAttribute("onclick", "closeImg()");
+  if (frames) {
+    frames.forEach(function(frame, index) {
+      //open up larger image when clicked
+      frame.onclick = function() {
+        let imageName = frame.children[0].src.split(
+          "images/fine-art/thumbnails/"
+        )[1];
+        getLatestOpenedImgIndex = imagesArray.indexOf(imageName);
+        let container = document.body;
+        let newImageWindow = document.createElement("div");
+        container.appendChild(newImageWindow);
+        newImageWindow.setAttribute("class", "img-window");
+        newImageWindow.setAttribute("onclick", "closeImg()");
 
-            let newImage = document.createElement("img");
-            newImageWindow.appendChild(newImage);
-            newImage.setAttribute("src", "images/fine-art/" + imageName);
-            newImage.setAttribute("id", "current-img");
+        let newImage = document.createElement("img");
+        newImageWindow.appendChild(newImage);
+        newImage.setAttribute("src", "images/fine-art/" + imageName);
+        newImage.setAttribute("id", "current-img");
 
-            newImage.onload = function() {
-                loadArrows(document, container);
-            };
-            };
-        });
-    }
+        newImage.onload = function() {
+          loadArrows(document, container);
+        };
+      };
+    });
+  }
 }
 
 /**
- * Change image given direction
- * @param {prev or next direction} changeDir
+ * Change image given direction.
+ * @param {number} changeDir
  */
 function changeImg(changeDir) {
   //close current image

@@ -16,7 +16,10 @@ function getChart() {
   }
 }
 
-/** Create map that includes Japan's city and population information using GeoMap, which makes use of Google Charts API, Maps API, and Geocoding API */
+/**
+ * Create map that includes Japan's city and population information using GeoMap, which makes use of Google Charts API,
+ * Maps API, and Geocoding API.
+ */
 function drawMarkersMap() {
   fetch("/japan-population")
     .then(response => response.json())
@@ -44,6 +47,9 @@ function drawMarkersMap() {
 
 google.charts.load("current", { packages: ["corechart"] });
 
+/**
+ * Draws line chart containing information on Japan life expectancy by year.
+ */
 function drawChart() {
   fetch("/life-expectancy")
     .then(response => response.json())
