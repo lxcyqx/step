@@ -20,10 +20,10 @@ let imagesArray = [
   "scratchboard.jpg"
 ];
 
-let getLatestOpenedImgIndex;
-let frames = document.querySelectorAll(".art-container");
+let latestOpenedImgIndex;
 
 function init() {
+  let frames = document.querySelectorAll(".art-container");
   if (frames) {
     frames.forEach(function(frame, index) {
       //open up larger image when clicked
@@ -31,7 +31,7 @@ function init() {
         let imageName = frame.children[0].src.split(
           "images/fine-art/thumbnails/"
         )[1];
-        getLatestOpenedImgIndex = imagesArray.indexOf(imageName);
+        latestOpenedImgIndex = imagesArray.indexOf(imageName);
         let container = document.body;
         let newImageWindow = document.createElement("div");
         container.appendChild(newImageWindow);
@@ -65,22 +65,22 @@ function changeImg(changeDir) {
 
   let newImageIndex;
   if (changeDir === 1) {
-    if (getLatestOpenedImgIndex == imagesArray.length - 1) {
+    if (latestOpenedImgIndex == imagesArray.length - 1) {
       newImageIndex = 0;
     } else {
-      newImageIndex = getLatestOpenedImgIndex + 1;
+      newImageIndex = latestOpenedImgIndex + 1;
     }
   } else if (changeDir === 0) {
-    if (getLatestOpenedImgIndex == 0) {
+    if (latestOpenedImgIndex == 0) {
       newImageIndex = imagesArray.length - 1;
     } else {
-      newImageIndex = getLatestOpenedImgIndex - 1;
+      newImageIndex = latestOpenedImgIndex - 1;
     }
   }
 
   newImg.setAttribute("src", "images/fine-art/" + imagesArray[newImageIndex]);
   newImg.setAttribute("id", "current-img");
-  getLatestOpenedImgIndex = newImageIndex;
+  latestOpenedImgIndex = newImageIndex;
 }
 
 function closeImg() {

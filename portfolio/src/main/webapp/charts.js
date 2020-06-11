@@ -1,8 +1,14 @@
-google.charts.load("current", {
-  packages: ["geochart"],
-  mapsApiKey: "AIzaSyC35R1Q1qkQndHm-Ni6isXLbsSCQif3Umg"
-});
-google.charts.setOnLoadCallback(getChart);
+/**
+ * Initializes by loading the charts.
+ */
+function init() {
+  google.charts.load("current", {
+    packages: ["geochart"],
+    mapsApiKey: "AIzaSyC35R1Q1qkQndHm-Ni6isXLbsSCQif3Umg"
+  });
+  google.charts.setOnLoadCallback(getChart);
+  google.charts.load("current", { packages: ["corechart"] });
+}
 
 /**
  * Gets the appropriate chart given the user selection from the dropdown.
@@ -45,8 +51,6 @@ function drawMarkersMap() {
     });
 }
 
-google.charts.load("current", { packages: ["corechart"] });
-
 /**
  * Draws line chart containing information on Japan life expectancy by year.
  */
@@ -72,3 +76,5 @@ function drawChart() {
       lineChart.draw(data, options);
     });
 }
+
+init();
