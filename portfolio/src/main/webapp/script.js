@@ -67,7 +67,10 @@ function drawChart() {
     });
 }
 
-/** Fetch quote from server and add to DOM */
+
+/**
+ * Fetch quote from server and add to DOM.
+ */
 function getRandomQuote() {
   fetch("/quotes")
     .then(response => response.text())
@@ -78,10 +81,13 @@ function getRandomQuote() {
 
 let currPage = 0;
 let numCommentsOnPage;
+let userEmail;
 
-/** Fetch comments from server and add to DOM */
+/**
+ * Fetch comments from server and add to DOM.
+ */
 function getComments() {
-  maxNumComments = document.getElementById("num-comments").value;
+  let maxNumComments = document.getElementById("num-comments").value;
   if (maxNumComments === "All") {
     maxNumComments = Number.MAX_VALUE;
   }
@@ -107,7 +113,9 @@ function getComments() {
     });
 }
 
-/** If on first page of comments, disable previous button*/
+/**
+ * If on first page of comments, disable previous button.
+ */
 function handleFirstPage() {
   if (currPage === 0) {
     prevBtn.disabled = true;
@@ -116,7 +124,10 @@ function handleFirstPage() {
   }
 }
 
-/** Handle scenario if on last page of comments*/
+/**
+ * Handle scenario if on last page of comments.
+ * @param {number} maxNumComments
+ */
 function handleLastPage(maxNumComments) {
   let nextPage = currPage + 1;
   //check for number of comments on next page
@@ -132,11 +143,16 @@ function handleLastPage(maxNumComments) {
   );
 }
 
-/** Handles scenario in which page has no comments, either when there are no comments in general or when there are no comments on current page due to page size change */
+/**
+ * Handles scenario in which page has no comments, either when there are no comments in general or when there are no
+ * comments on current page due to page size change.
+ * @param {number} maxNumComments
+ */
 function handleNoComments(maxNumComments) {
   //handles case when last page has no comments
   if (numCommentsOnPage === 0) {
-    //set current page to 0 and fetch comments that would be displayed on first page
+    /* Set current page to 0 and fetch comments that would be displayed on   
+     * first page. */
     currPage = 0;
     fetch("/data?num=" + maxNumComments + "&page=" + currPage)
       .then(response => response.json())
@@ -166,7 +182,10 @@ function handleNoComments(maxNumComments) {
   }
 }
 
-/** Create formatting for comment to be inserted */
+/**
+ * Create formatting for comment to be inserted.
+ * @param {object} comment
+ */
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.setAttribute("id", "video-comments");
@@ -188,25 +207,15 @@ function createCommentElement(comment) {
   commentFooter.setAttribute("class", "comment-footer");
   const footerInfo = document.createElement("div");
   footerInfo.setAttribute("class", "footer-info");
-  //if user did not provide name, set name as anonymous
-  if (comment.name.trim() === "") {
-    footerInfo.innerText = "Anonymous" + " | " + comment.timestamp;
-  } else {
-    footerInfo.innerText = comment.name + " | " + comment.timestamp;
-  }
+  footerInfo.innerText = comment.email + " | " + comment.timestamp;
   commentFooter.appendChild(footerInfo);
   commentElement.appendChild(commentFooter);
   return commentElement;
 }
 
-/** Creates an <li> element containing text */
-function createListElement(text) {
-  const liElement = document.createElement("li");
-  liElement.innerText = text;
-  return liElement;
-}
-
-/** Deletes all the comments and calls getComments to get comments from API with all comments now deleted*/
+/**
+ * Deletes all the comments and calls getComments to get comments from API with all comments now deleted.
+ */
 function deleteAll() {
   const request = new Request("/delete-data", { method: "POST" });
   fetch(request).then(() => {
@@ -214,7 +223,10 @@ function deleteAll() {
   });
 }
 
-/** Delete given comment */
+/**
+ * Deletes given comment.
+ * @param {object} comment
+ */
 function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append("id", comment.id);
@@ -223,28 +235,82 @@ function deleteComment(comment) {
   });
 }
 
-/** Add user's comment */
+/**
+ * Adds user's comment.
+ */
 function addComment() {
   let text = document.getElementById("comment-box").value;
-  let name = document.getElementById("name-box").value;
   //if comment input is empty, can't submit
   if (text.trim() === "") return;
   document.getElementById("comment-box").value = "";
-  fetch("add-comment?comment-text=" + text + "&name=" + name, {
-    method: "POST"
-  });
+  fetch(
+    "add-comment?comment-text=" +
+      text +
+      "&name=" +
+      name +
+      "&email=" +
+      userEmail,
+    { method: "POST" }
+  );
 
   setTimeout(getComments, 500);
 }
 
-/** Increments current page number */
+/**
+ * Increments current page number.
+ */
 function nextPage() {
   currPage++;
   getComments();
 }
 
-/** Decrements current page number */
+/**
+ * Decrements current page number.
+ */
 function prevPage() {
   currPage--;
+  getComments();
+}
+
+/**
+ * Gets user's current login status.
+ */
+function getLoginStatus() {
+  const commentSection = document.getElementById("comment-box");
+  const submitButton = document.getElementById("submit");
+
+  fetch("/auth")
+    .then(response => response.json())
+    .then(userInfo => {
+      const loginStatusElement = document.getElementById("login-status");
+      loginStatusElement.innerHTML = "";
+
+      if (userInfo.isLoggedIn === "true") {
+        const logoutElement = document.createElement("a");
+        logoutElement.innerHTML = "Log Out";
+        logoutElement.href = userInfo.logoutUrl;
+
+        loginStatusElement.appendChild(logoutElement);
+        userEmail = userInfo.email;
+
+        commentSection.style.display = "block";
+        submitButton.style.display = "block";
+      } else {
+        const loginElement = document.createElement("a");
+        loginElement.innerHTML = "Log In";
+        loginElement.href = userInfo.loginUrl;
+
+        const textElement = document.createElement("p");
+        textElement.innerHTML = "Sign in to add comments";
+
+        loginStatusElement.appendChild(loginElement);
+        loginStatusElement.appendChild(textElement);
+
+        userEmail = null;
+        commentSection.style.display = "none";
+        submitButton.style.display = "none";
+      }
+    });
+
   getComments();
 }
