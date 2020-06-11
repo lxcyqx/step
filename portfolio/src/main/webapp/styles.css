@@ -10,12 +10,44 @@ body {
   background-color: #fffcf8;
 }
 
+.dropdown-container {
+  float: right;
+}
+
+.dropdown {
+  display: inline-block;
+  width: 75px;
+  background-color: #747fe0;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-family: Verdana;
+  outline: none;
+  font-size: 13px;
+}
+
+.dropdown.chart {
+  width: 200px;
+}
+
+.dropdown:hover {
+  background-color: #888;
+}
+
+#chart {
+  width: 800px;
+  height: 433px;
+}
+
 #quote-container {
-    font-style: italic;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 16px;
-    text-align: center;
-    margin: 0px auto 50px auto;
+  font-style: italic;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  margin: 0px auto 50px auto;
 }
 
 .header {
@@ -430,6 +462,61 @@ table {
   transition: all 0.3s ease-in;
 }
 
+.nav-active {
+  opacity: 1;
+  display: flex;
+  z-index: 1000;
+  transition: all 0.5s ease 0.2s;
+}
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(0, 11.5px);
+}
+
+.toggle .line2 {
+  opacity: 0;
+}
+
+.toggle .line3 {
+  transform: rotate(45deg) translate(0, -11.5px);
+}
+
+.art-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: 0.3s;
+}
+
+.art-container:hover {
+  transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  opacity: 0.5;
+}
+
+.art-image-container img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.overlay.art {
+  background-color: #d8d8d8;
+  top: 8px;
+}
+
+.art-description {
+  color: #808080;
+  font-size: 1.2em;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-30%, -50%);
+  width: 80%;
+  font-weight: 500;
+}
+
 @media (max-width: 1000px) {
   .nav-links {
     width: 40%;
@@ -442,6 +529,11 @@ table {
   }
 }
 @media (max-width: 800px) {
+  #chart {
+    width: 400px;
+    height: 233px;
+  }
+
   .project-title-small {
     font-size: 1em;
   }
@@ -543,60 +635,4 @@ table {
   li.fade {
     opacity: 1;
   }
-}
-
-.nav-active {
-  /* transform: translate(0%); */
-  opacity: 1;
-  display: flex;
-  z-index: 1000;
-  transition: all 0.5s ease 0.2s;
-}
-
-.toggle .line1 {
-  transform: rotate(-45deg) translate(0, 11.5px);
-}
-
-.toggle .line2 {
-  opacity: 0;
-}
-
-.toggle .line3 {
-  transform: rotate(45deg) translate(0, -11.5px);
-}
-
-.art-container {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  transition: 0.3s;
-}
-
-.art-container:hover {
-  transition: opacity 0.3s;
-  -webkit-transition: opacity 0.3s;
-  opacity: 0.5;
-}
-
-.art-image-container img {
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-.overlay.art {
-  background-color: #d8d8d8;
-  top: 8px;
-}
-
-.art-description {
-  color: #808080;
-  font-size: 1.2em;
-  position: absolute;
-  top: 50%;
-  left: 35%;
-  transform: translate(-30%, -50%);
-  width: 80%;
-  font-weight: 500;
 }
