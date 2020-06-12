@@ -32,6 +32,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
+import com.google.sps.data.CommentsInfo;
 
 /**
  * Servlet responsible for displaying comment data.
@@ -53,23 +54,28 @@ public class DataServlet extends HttpServlet {
     String languageCode = request.getParameter("languageCode");
 
     /*
-     * Bet number of comments to show per page from user input and limit * list of
+     * Bet number of comments to show per page from user input and limit list of
      * comments depending on current page.
      */
     int numComments = this.getMaxNumComments(request);
     int offsetAmount;
+    int nextPageOffset;
     /*
-     * In the case that numComments is MAX_VALUE, multiplying it by even * number
-     * will result in negative number and offset cannot be negative.
+     * In the case that numComments is MAX_VALUE, multiplying it by even number will
+     * result in negative number and offset cannot be negative.
      */
     if (numComments * currPage < 0) {
       offsetAmount = Integer.MAX_VALUE;
+      nextPageOffset = Integer.MAX_VALUE;
     } else {
       offsetAmount = numComments * currPage;
+      nextPageOffset = numComments * (currPage + 1);
     }
 
-    List<Entity> limitedComments = limitedComments = results
+    List<Entity> limitedComments = results
         .asList(FetchOptions.Builder.withLimit(numComments).offset(offsetAmount));
+    List<Entity> nextPageComments = results
+        .asList(FetchOptions.Builder.withLimit(numComments).offset(nextPageOffset));
 
     // Add entity to list of comments
     List<Comment> commentsList = new ArrayList<Comment>();
@@ -81,8 +87,8 @@ public class DataServlet extends HttpServlet {
       Comment comment = new Comment(id, text, timestamp, email);
       commentsList.add(comment);
     }
-
-    String json = new Gson().toJson(commentsList);
+    CommentsInfo commentsInfo = new CommentsInfo(commentsList, nextPageComments.size());
+    String json = new Gson().toJson(commentsInfo);
 
     // Send JSON as response
     response.setContentType("application/json;");
