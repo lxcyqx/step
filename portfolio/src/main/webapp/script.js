@@ -121,7 +121,7 @@ function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.setAttribute("id", "video-comments");
   //add delete button to comments made by
-  if (userEmail === comment.email){
+  if (userEmail === comment.email) {
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("class", "delete");
     deleteButton.addEventListener("click", () => {
@@ -140,7 +140,9 @@ function createCommentElement(comment) {
   commentFooter.setAttribute("class", "comment-footer");
   const footerInfo = document.createElement("div");
   footerInfo.setAttribute("class", "footer-info");
-  footerInfo.innerText = comment.email.split("@")[0] + " | " + comment.timestamp;
+  if (comment.email) {
+    footerInfo.innerText = comment.email.split("@")[0] + " | " + comment.timestamp;
+  }
   commentFooter.appendChild(footerInfo);
   commentElement.appendChild(commentFooter);
   return commentElement;
@@ -163,6 +165,8 @@ function deleteAll() {
 function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append("id", comment.id);
+  params.append("email", comment.email);
+  params.append("user", userEmail);
   fetch("/delete-comment", { method: "POST", body: params }).then(() => {
     getComments();
   });
@@ -178,9 +182,9 @@ function addComment() {
   document.getElementById("comment-box").value = "";
   fetch(
     "add-comment?comment-text=" +
-      text +
-      "&email=" +
-      userEmail,
+    text +
+    "&email=" +
+    userEmail,
     { method: "POST" }
   );
 
@@ -247,6 +251,6 @@ function getLoginStatus() {
         submitButton.style.display = "none";
       }
     });
-    
+
   getComments();
 }

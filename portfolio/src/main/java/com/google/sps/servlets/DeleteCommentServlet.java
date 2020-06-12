@@ -24,9 +24,15 @@ public class DeleteCommentServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     long id = Long.parseLong(request.getParameter("id"));
+    String commentEmail = request.getParameter("email");
+    String userEmail = request.getParameter("user");
+    if (commentEmail.equals(userEmail)){
+      Key commentEntityKey = KeyFactory.createKey("Comment", id);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.delete(commentEntityKey);
+    } else {
+      System.err.println("ERROR: Cannot delete comment.");
+    }
 
-    Key commentEntityKey = KeyFactory.createKey("Comment", id);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.delete(commentEntityKey);
   }
 }
