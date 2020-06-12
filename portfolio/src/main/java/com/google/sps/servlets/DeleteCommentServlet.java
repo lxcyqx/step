@@ -28,6 +28,7 @@ public class DeleteCommentServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     String commentEmail = request.getParameter("email");
     String userEmail = request.getParameter("user");
+    //if user did not make the comment or if user is not logged in 
     if (!commentEmail.equals(userEmail) || !userService.isUserLoggedIn()){
       System.err.println("ERROR: Cannot delete comment.");
       return;
