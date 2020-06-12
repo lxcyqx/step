@@ -33,13 +33,16 @@ public class DeleteCommentServlet extends HttpServlet {
       System.err.println("ERROR: Cannot delete comment.");
       return;
     }
+    long id;
     try {
-      long id = Long.parseLong(request.getParameter("id"));
-      Key commentEntityKey = KeyFactory.createKey("Comment", id);
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.delete(commentEntityKey);
+      id = Long.parseLong(request.getParameter("id"));
     } catch (NumberFormatException e){
       System.err.println("ERROR: Failed to parse to long.");
+      //Invalid long, don't continue
+      return;
     }
+    Key commentEntityKey = KeyFactory.createKey("Comment", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.delete(commentEntityKey);
   }
 }

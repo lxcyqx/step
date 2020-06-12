@@ -25,7 +25,7 @@ function getComments() {
 
   handleFirstPage();
 
-  fetch("/data?num=" + maxNumComments + "&page=" + currPage)
+  fetch(`/data?num=${maxNumComments}&page=${currPage}`)
     .then(response => response.json())
     .then(comments => {
       const commentElement = document.getElementById(
@@ -61,7 +61,7 @@ function handleFirstPage() {
 function handleLastPage(maxNumComments) {
   let nextPage = currPage + 1;
   //check for number of comments on next page
-  fetch("/data?num=" + maxNumComments + "&page=" + nextPage).then(response =>
+  fetch(`/data?num=${maxNumComments}&page=${nextPage}`).then(response =>
     response.json().then(comments => {
       //if no comments on next page, then current page is last page
       if (comments.length === 0) {
@@ -85,7 +85,7 @@ function handleNoComments(maxNumComments) {
     /* Set current page to 0 and fetch comments that would be displayed on   
      * first page. */
     currPage = 0;
-    fetch("/data?num=" + maxNumComments + "&page=" + currPage)
+    fetch(`/data?num=${maxNumComments}&page=${currPage}`)
       .then(response => response.json())
       .then(comments => {
         //if there aren't any comments at all, add message
@@ -181,10 +181,7 @@ function addComment() {
   if (text.trim() === "") return;
   document.getElementById("comment-box").value = "";
   fetch(
-    "add-comment?comment-text=" +
-    text +
-    "&email=" +
-    userEmail,
+    `add-comment?comment-text=${text}&email=${userEmail}`,
     { method: "POST" }
   );
 
