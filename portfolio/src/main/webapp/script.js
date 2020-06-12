@@ -101,11 +101,6 @@ function handleNoComments(maxNumComments) {
           for (i = 0; i < comments.length; i++) {
             commentElement.appendChild(createCommentElement(comments[i]));
           }
-          // if (commentsInfo["numComments"] > 0) {
-          //   nextBtn.disabled = false;
-          // } else {
-          //   nextBtn.disabled = false;
-          // }
           handleNextBtn(commentsInfo);
         }
       });
