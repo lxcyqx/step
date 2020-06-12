@@ -27,18 +27,26 @@ function getComments() {
 
   fetch(`/data?num=${maxNumComments}&page=${currPage}`)
     .then(response => response.json())
-    .then(comments => {
+    .then(commentsInfo => {
       const commentElement = document.getElementById(
         "video-comments-container"
       );
       commentElement.innerHTML = "";
-      numCommentsOnPage = comments.length;
+      numCommentsOnPage = commentsInfo["commentsList"].length;
 
       handleNoComments(maxNumComments);
-      handleLastPage(maxNumComments);
 
+      //add comments to page
       for (i = 0; i < numCommentsOnPage; i++) {
-        commentElement.appendChild(createCommentElement(comments[i]));
+        commentElement.appendChild(
+          createCommentElement(commentsInfo["commentsList"][i])
+        );
+      }
+      //if number of comments on next page is 0, disable next button
+      if (commentsInfo["numComments"] === 0) {
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.disabled = false;
       }
     });
 }
@@ -55,26 +63,7 @@ function handleFirstPage() {
 }
 
 /**
- * Handle scenario if on last page of comments.
- * @param {number} maxNumComments
- */
-function handleLastPage(maxNumComments) {
-  let nextPage = currPage + 1;
-  //check for number of comments on next page
-  fetch(`/data?num=${maxNumComments}&page=${nextPage}`).then(response =>
-    response.json().then(comments => {
-      //if no comments on next page, then current page is last page
-      if (comments.length === 0) {
-        nextBtn.disabled = true;
-      } else {
-        nextBtn.disabled = false;
-      }
-    })
-  );
-}
-
-/**
- * Handles scenario in which page has no comments, either when there are no  
+ * Handles scenario in which page has no comments, either when there are no
  * comments in general or when there are no
  * comments on current page due to page size change.
  * @param {number} maxNumComments
@@ -82,7 +71,7 @@ function handleLastPage(maxNumComments) {
 function handleNoComments(maxNumComments) {
   //handles case when last page has no comments
   if (numCommentsOnPage === 0) {
-    /* Set current page to 0 and fetch comments that would be displayed on   
+    /* Set current page to 0 and fetch comments that would be displayed on
      * first page. */
     currPage = 0;
     fetch(`/data?num=${maxNumComments}&page=${currPage}`)
@@ -141,7 +130,8 @@ function createCommentElement(comment) {
   const footerInfo = document.createElement("div");
   footerInfo.setAttribute("class", "footer-info");
   if (comment.email) {
-    footerInfo.innerText = comment.email.split("@")[0] + " | " + comment.timestamp;
+    footerInfo.innerText =
+      comment.email.split("@")[0] + " | " + comment.timestamp;
   }
   commentFooter.appendChild(footerInfo);
   commentElement.appendChild(commentFooter);
@@ -180,10 +170,9 @@ function addComment() {
   //if comment input is empty, can't submit
   if (text.trim() === "") return;
   document.getElementById("comment-box").value = "";
-  fetch(
-    `add-comment?comment-text=${text}&email=${userEmail}`,
-    { method: "POST" }
-  );
+  fetch(`add-comment?comment-text=${text}&email=${userEmail}`, {
+    method: "POST"
+  });
 
   setTimeout(getComments, 500);
 }
@@ -237,7 +226,7 @@ function getLoginStatus() {
 
         const textElement = document.createElement("p");
         textElement.innerHTML = " to add comments";
-        textElement.style.display = "inline"
+        textElement.style.display = "inline";
 
         loginStatusElement.appendChild(loginElement);
         loginStatusElement.appendChild(textElement);
