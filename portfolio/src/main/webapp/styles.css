@@ -24,9 +24,8 @@ body {
   border-radius: 4px;
   cursor: pointer;
   margin-left: 10px;
-  font-family: Verdana;
+  font: 13px Verdana;
   outline: none;
-  font-size: 13px;
 }
 
 .dropdown.chart {
@@ -44,8 +43,7 @@ body {
 
 #quote-container {
   font-style: italic;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
+  font: 16px Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
   margin: 0px auto 50px auto;
 }
@@ -123,8 +121,7 @@ a:hover {
 
 .grid-container {
   margin-top: 35px;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 0px 10%;
 }
 
 .grid-small {
@@ -275,21 +272,19 @@ a {
 }
 
 .title {
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin: 20px 0 30px 0;
   font-size: 30px;
   text-align: center;
 }
 
 .subtitle {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 40px 0;
   font-size: 30px;
   text-align: center;
 }
 
 .large-image {
-  margin: 0px auto 0px auto;
+  margin: 0px auto;
   max-width: 1000px;
   height: auto;
   width: 80%;
@@ -298,7 +293,7 @@ a {
 }
 
 .body-image {
-  margin: 20px auto 50px auto;
+  margin: 20px auto;
   max-width: 1000px;
   height: auto;
   width: 100%;

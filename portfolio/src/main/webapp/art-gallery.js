@@ -20,37 +20,40 @@ let imagesArray = [
   "scratchboard.jpg"
 ];
 
-let getLatestOpenedImgIndex;
-let frames = document.querySelectorAll(".art-container");
+let latestOpenedImgIndex;
 
 function init() {
-    if (frames) {
-        frames.forEach(function(frame, index) {
-            frame.onclick = function() {
-            let imageName = frame.children[0].src.split("images/fine-art/thumbnails/")[1];
-            getLatestOpenedImgIndex = imagesArray.indexOf(imageName);
-            let container = document.body;
-            let newImageWindow = document.createElement("div");
-            container.appendChild(newImageWindow);
-            newImageWindow.setAttribute("class", "img-window");
-            newImageWindow.setAttribute("onclick", "closeImg()");
+  let frames = document.querySelectorAll(".art-container");
+  if (frames) {
+    frames.forEach(function(frame, index) {
+      //open up larger image when clicked
+      frame.onclick = function() {
+        let imageName = frame.children[0].src.split(
+          "images/fine-art/thumbnails/"
+        )[1];
+        latestOpenedImgIndex = imagesArray.indexOf(imageName);
+        let container = document.body;
+        let newImageWindow = document.createElement("div");
+        container.appendChild(newImageWindow);
+        newImageWindow.setAttribute("class", "img-window");
+        newImageWindow.setAttribute("onclick", "closeImg()");
 
-            let newImage = document.createElement("img");
-            newImageWindow.appendChild(newImage);
-            newImage.setAttribute("src", "images/fine-art/" + imageName);
-            newImage.setAttribute("id", "current-img");
+        let newImage = document.createElement("img");
+        newImageWindow.appendChild(newImage);
+        newImage.setAttribute("src", "images/fine-art/" + imageName);
+        newImage.setAttribute("id", "current-img");
 
-            newImage.onload = function() {
-                loadArrows(document, container);
-            };
-            };
-        });
-    }
+        newImage.onload = function() {
+          loadArrows(document, container);
+        };
+      };
+    });
+  }
 }
 
 /**
- * Change image given direction
- * @param {prev or next direction} changeDir
+ * Change image given direction.
+ * @param {number} changeDir
  */
 function changeImg(changeDir) {
   //close current image
@@ -62,22 +65,22 @@ function changeImg(changeDir) {
 
   let newImageIndex;
   if (changeDir === 1) {
-    if (getLatestOpenedImgIndex == imagesArray.length - 1) {
+    if (latestOpenedImgIndex == imagesArray.length - 1) {
       newImageIndex = 0;
     } else {
-      newImageIndex = getLatestOpenedImgIndex + 1;
+      newImageIndex = latestOpenedImgIndex + 1;
     }
   } else if (changeDir === 0) {
-    if (getLatestOpenedImgIndex == 0) {
+    if (latestOpenedImgIndex == 0) {
       newImageIndex = imagesArray.length - 1;
     } else {
-      newImageIndex = getLatestOpenedImgIndex - 1;
+      newImageIndex = latestOpenedImgIndex - 1;
     }
   }
 
   newImg.setAttribute("src", "images/fine-art/" + imagesArray[newImageIndex]);
   newImg.setAttribute("id", "current-img");
-  getLatestOpenedImgIndex = newImageIndex;
+  latestOpenedImgIndex = newImageIndex;
 }
 
 function closeImg() {

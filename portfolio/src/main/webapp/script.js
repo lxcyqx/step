@@ -1,73 +1,3 @@
-google.charts.load("current", {
-  packages: ["geochart"],
-  mapsApiKey: "AIzaSyC35R1Q1qkQndHm-Ni6isXLbsSCQif3Umg"
-});
-google.charts.setOnLoadCallback(getChart);
-
-/**
- * Gets the appropriate chart given the user selection from the dropdown.
- */
-function getChart() {
-  const chartType = document.getElementById("chart-type").value;
-  if (chartType === "GeoMap") {
-    drawMarkersMap();
-  } else if (chartType === "LineChart") {
-    drawChart();
-  }
-}
-
-/** Create map that includes Japan's city and population information using GeoMap, which makes use of Google Charts API, Maps API, and Geocoding API */
-function drawMarkersMap() {
-  fetch("/japan-population")
-    .then(response => response.json())
-    .then(cityPopulations => {
-      const data = new google.visualization.DataTable();
-      data.addColumn("string", "City");
-      data.addColumn("number", "Population");
-      Object.keys(cityPopulations).forEach(city => {
-        data.addRow([city, cityPopulations[city]]);
-      });
-
-      const options = {
-        title: "Population of Japan's Largest Cities",
-        region: "JP",
-        displayMode: "markers",
-        colorAxis: { colors: ["blue", "red"] }
-      };
-
-      const geomap = new google.visualization.GeoChart(
-        document.getElementById("chart")
-      );
-      geomap.draw(data, options);
-    });
-}
-
-google.charts.load("current", { packages: ["corechart"] });
-
-function drawChart() {
-  fetch("/life-expectancy")
-    .then(response => response.json())
-    .then(lifeExpectancy => {
-      const data = new google.visualization.DataTable();
-      data.addColumn("string", "Year");
-      data.addColumn("number", "Life Expectancy");
-      Object.keys(lifeExpectancy).forEach(year => {
-        data.addRow([year, lifeExpectancy[year]]);
-      });
-      const options = {
-        title: "Japan Life Expectancy",
-        legend: { position: "bottom" }
-      };
-
-      const lineChart = new google.visualization.LineChart(
-        document.getElementById("chart")
-      );
-
-      lineChart.draw(data, options);
-    });
-}
-
-
 /**
  * Fetch quote from server and add to DOM.
  */
@@ -144,7 +74,8 @@ function handleLastPage(maxNumComments) {
 }
 
 /**
- * Handles scenario in which page has no comments, either when there are no comments in general or when there are no
+ * Handles scenario in which page has no comments, either when there are no  
+ * comments in general or when there are no
  * comments on current page due to page size change.
  * @param {number} maxNumComments
  */
@@ -189,14 +120,16 @@ function handleNoComments(maxNumComments) {
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.setAttribute("id", "video-comments");
-  //add delete button
-  const deleteButton = document.createElement("button");
-  deleteButton.setAttribute("class", "delete");
-  deleteButton.addEventListener("click", () => {
-    deleteComment(comment);
-  });
-  deleteButton.innerText = "Delete";
-  commentElement.appendChild(deleteButton);
+  //add delete button to comments made by
+  if (userEmail === comment.email){
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "delete");
+    deleteButton.addEventListener("click", () => {
+      deleteComment(comment);
+    });
+    deleteButton.innerText = "Delete";
+    commentElement.appendChild(deleteButton);
+  }
   //add comment text
   const commentText = document.createElement("div");
   commentText.setAttribute("class", "comment-text");
@@ -207,14 +140,14 @@ function createCommentElement(comment) {
   commentFooter.setAttribute("class", "comment-footer");
   const footerInfo = document.createElement("div");
   footerInfo.setAttribute("class", "footer-info");
-  footerInfo.innerText = comment.email + " | " + comment.timestamp;
+  footerInfo.innerText = comment.email.split("@")[0] + " | " + comment.timestamp;
   commentFooter.appendChild(footerInfo);
   commentElement.appendChild(commentFooter);
   return commentElement;
 }
 
 /**
- * Deletes all the comments and calls getComments to get comments from API with all comments now deleted.
+ * Deletes all the comments and calls getComments to get comments from API with * all comments now deleted.
  */
 function deleteAll() {
   const request = new Request("/delete-data", { method: "POST" });
@@ -246,8 +179,6 @@ function addComment() {
   fetch(
     "add-comment?comment-text=" +
       text +
-      "&name=" +
-      name +
       "&email=" +
       userEmail,
     { method: "POST" }
@@ -285,7 +216,9 @@ function getLoginStatus() {
       const loginStatusElement = document.getElementById("login-status");
       loginStatusElement.innerHTML = "";
 
+      //if user is logged in, show comment section
       if (userInfo.isLoggedIn === "true") {
+        //allow user to log out
         const logoutElement = document.createElement("a");
         logoutElement.innerHTML = "Log Out";
         logoutElement.href = userInfo.logoutUrl;
@@ -296,21 +229,24 @@ function getLoginStatus() {
         commentSection.style.display = "block";
         submitButton.style.display = "block";
       } else {
+        //allow user to log in
         const loginElement = document.createElement("a");
         loginElement.innerHTML = "Log In";
         loginElement.href = userInfo.loginUrl;
 
         const textElement = document.createElement("p");
-        textElement.innerHTML = "Sign in to add comments";
+        textElement.innerHTML = " to add comments";
+        textElement.style.display = "inline"
 
         loginStatusElement.appendChild(loginElement);
         loginStatusElement.appendChild(textElement);
 
         userEmail = null;
+        //hide comment section
         commentSection.style.display = "none";
         submitButton.style.display = "none";
       }
     });
-
+    
   getComments();
 }
