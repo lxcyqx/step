@@ -24,7 +24,6 @@ function getComments() {
   let prevBtn = document.getElementById("prevBtn");
 
   handleFirstPage();
-
   fetch(`/data?num=${maxNumComments}&page=${currPage}`)
     .then(response => response.json())
     .then(commentsInfo => {
@@ -35,20 +34,26 @@ function getComments() {
       numCommentsOnPage = commentsInfo["commentsList"].length;
 
       handleNoComments(maxNumComments);
-
       //add comments to page
       for (i = 0; i < numCommentsOnPage; i++) {
         commentElement.appendChild(
           createCommentElement(commentsInfo["commentsList"][i])
         );
       }
-      //if number of comments on next page is 0, disable next button
-      if (commentsInfo["numComments"] === 0) {
-        nextBtn.disabled = true;
-      } else {
-        nextBtn.disabled = false;
-      }
+      handleNextBtn(commentsInfo);
     });
+}
+
+/**
+ * If number of comments on next page is 0, disable next button
+ * @param {object} commentsInfo
+ */
+function handleNextBtn(commentsInfo) {
+  if (commentsInfo["numComments"] === 0) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.disabled = false;
+  }
 }
 
 /**
@@ -71,12 +76,12 @@ function handleFirstPage() {
 function handleNoComments(maxNumComments) {
   //handles case when last page has no comments
   if (numCommentsOnPage === 0) {
-    /* Set current page to 0 and fetch comments that would be displayed on
-     * first page. */
+    // Set current page to 0 and fetch comments
     currPage = 0;
     fetch(`/data?num=${maxNumComments}&page=${currPage}`)
       .then(response => response.json())
-      .then(comments => {
+      .then(commentsInfo => {
+        const comments = commentsInfo["commentsList"];
         //if there aren't any comments at all, add message
         if (comments.length === 0) {
           const commentsContainer = document.getElementById(
@@ -93,10 +98,10 @@ function handleNoComments(maxNumComments) {
           );
           commentElement.innerHTML = "";
           handleFirstPage();
-          handleLastPage(maxNumComments);
           for (i = 0; i < comments.length; i++) {
             commentElement.appendChild(createCommentElement(comments[i]));
           }
+          handleNextBtn(commentsInfo);
         }
       });
   }
