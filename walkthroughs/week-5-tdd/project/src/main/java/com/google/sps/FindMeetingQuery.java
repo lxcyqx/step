@@ -28,7 +28,7 @@ public final class FindMeetingQuery {
     for (Event event : events){
       //get required attendees for each event
       Set<String> eventAttendees = event.getAttendees();
-      //if at least one of the meeting request attendees has to attend event, then that block of time becomes unavailable
+      /* if at least one of the meeting request attendees has to attend event,   * then that block of time becomes unavailable */
       for (String attendee : eventAttendees){
         if (attendees.contains(attendee)){
           unavailableTimes.add(event.getWhen());
@@ -48,10 +48,13 @@ public final class FindMeetingQuery {
       if (!eventTime.contains(start) && eventTime.start() - start >= meetingDuration){
         availableTimes.add(TimeRange.fromStartEnd(start, eventTime.start(), false));
       }
-
-      start = eventTime.end();
+      //pointer should not point to nested event
+      if (eventTime.end() > start){
+        start = eventTime.end();
+      }
     }
 
+    //account for end of day time slot
     if (TimeRange.END_OF_DAY - start >= meetingDuration){
       availableTimes.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
     }
