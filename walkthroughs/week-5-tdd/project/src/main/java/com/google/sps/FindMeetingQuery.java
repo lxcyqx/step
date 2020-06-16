@@ -22,14 +22,23 @@ import java.util.ArrayList;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    //Get time ranges for which mandatory attendees are unavailable.
-    List<TimeRange> unavailableTimes = this.getUnavailableTimes(events, request.getAttendees());
-    //Get time ranges for which mandatory attendees are available.
-    Collection<TimeRange> availableTimes = this.getAvailableTimes(events, request, unavailableTimes);
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    List<TimeRange> unavailableTimes;
+    Collection<TimeRange> availableTimes;
+    if (mandatoryAttendees.size() > 0){
+      //Get time ranges for which mandatory attendees are unavailable.
+      unavailableTimes = this.getUnavailableTimes(events, mandatoryAttendees);
+      //Get time ranges for which mandatory attendees are available.
+      availableTimes = this.getAvailableTimes(events, request, unavailableTimes);
+    } else {
+      unavailableTimes = new ArrayList<TimeRange>();
+      availableTimes = new ArrayList<TimeRange>();
+    }
+    
     Collection<String> allAttendees = new ArrayList<String>();
     allAttendees.addAll(request.getAttendees());
     allAttendees.addAll(request.getOptionalAttendees());
-    //Get time ranges for which all attendees are unavailable.
+    //Get time ranges for which all attendees (optional and mandatory) are unavailable.
     List<TimeRange> unavailableTimesWithOptional = this.getUnavailableTimes(events, allAttendees);
     //Get time ranches for which all attendees are available.
     Collection<TimeRange> availableTimesWithOptional = this.getAvailableTimes(events, request, unavailableTimesWithOptional);
