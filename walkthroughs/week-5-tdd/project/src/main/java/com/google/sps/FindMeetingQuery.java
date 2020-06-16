@@ -22,20 +22,31 @@ import java.util.ArrayList;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeRange> unavailableTimes = this.getUnavailableTimes(events, request);
-    return this.getAvailableTimes(events, request, unavailableTimes);
-    
+    //Get time ranges for which mandatory attendees are unavailable.
+    List<TimeRange> unavailableTimes = this.getUnavailableTimes(events, request.getAttendees());
+    //Get time ranges for which mandatory attendees are available.
+    Collection<TimeRange> availableTimes = this.getAvailableTimes(events, request, unavailableTimes);
+    Collection<String> allAttendees = new ArrayList<String>();
+    allAttendees.addAll(request.getAttendees());
+    allAttendees.addAll(request.getOptionalAttendees());
+    //Get time ranges for which all attendees are unavailable.
+    List<TimeRange> unavailableTimesWithOptional = this.getUnavailableTimes(events, allAttendees);
+    //Get time ranches for which all attendees are available.
+    Collection<TimeRange> availableTimesWithOptional = this.getAvailableTimes(events, request, unavailableTimesWithOptional);
+    if (availableTimesWithOptional.size() > 0){
+      return availableTimesWithOptional;
+    } else {
+      return availableTimes;
+    }
   }
 
   /**
-   * Iterate through collection of events and determine times for which mandatory meeting request attendees are busy.
+   * Iterate through collection of events and determine times for which attendees are busy.
    * @param events collection of events for which attendees may have to attend
-   * @param request meeting request
+   * @param attendees collection of attendees to check for when they are busy
    * @return list of unavailable Time Ranges
    */
-  public List<TimeRange> getUnavailableTimes(Collection<Event> events, MeetingRequest request){
-    //Get mandatory attendees of meeting request.
-    Collection<String> attendees = request.getAttendees();
+  public List<TimeRange> getUnavailableTimes(Collection<Event> events, Collection<String> attendees){
     //Iimes when at least one of the meeting request attendees is busy
     List<TimeRange> unavailableTimes = new ArrayList<TimeRange>();
     for (Event event : events){
@@ -50,13 +61,12 @@ public final class FindMeetingQuery {
         }
       }
     }
-
     Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
     return unavailableTimes;
   }
 
   /**
-   * Given the unavailable Time Ranges, find available time ranges for which all mandatory attendees
+   * Given the unavailable Time Ranges, find available time ranges for which all attendees
    * can attend a meeting for the duration of the meeting request and return collection of these
    * available time ranges.
    * @param events collection of events for which attendees may have to attend
