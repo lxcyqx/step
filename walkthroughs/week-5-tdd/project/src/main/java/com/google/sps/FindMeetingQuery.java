@@ -17,18 +17,25 @@ package com.google.sps;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.List;
 import java.util.ArrayList;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    //mandatory attendees of meeting request
+    List<TimeRange> unavailableTimes = this.getUnavailableTimes(events, request);
+    return this.getAvailableTimes(events, request, unavailableTimes);
+    
+  }
+
+  public List<TimeRange> getUnavailableTimes(Collection<Event> events, MeetingRequest request){
+    //Gets mandatory attendees of meeting request.
     Collection<String> attendees = request.getAttendees();
-    //times when at least one of the meeting request attendees is busy
-    ArrayList<TimeRange> unavailableTimes = new ArrayList<TimeRange>();
+    //Iimes when at least one of the meeting request attendees is busy
+    List<TimeRange> unavailableTimes = new ArrayList<TimeRange>();
     for (Event event : events){
-      //get required attendees for each event
+      //Gets required attendees for each event.
       Set<String> eventAttendees = event.getAttendees();
-      /* if at least one of the meeting request attendees has to attend event,   * then that block of time becomes unavailable */
+      /* If at least one of the meeting request attendees has to attend event,   * then that block of time becomes unavailable */
       for (String attendee : eventAttendees){
         if (attendees.contains(attendee)){
           unavailableTimes.add(event.getWhen());
@@ -38,6 +45,10 @@ public final class FindMeetingQuery {
     }
 
     Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
+    return unavailableTimes;
+  }
+
+  public Collection<TimeRange> getAvailableTimes(Collection<Event> events, MeetingRequest request, List<TimeRange> unavailableTimes){
     //get duration of meeting request
     long meetingDuration = request.getDuration();
     
