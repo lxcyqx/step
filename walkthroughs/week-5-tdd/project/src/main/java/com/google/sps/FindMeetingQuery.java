@@ -28,12 +28,12 @@ public final class FindMeetingQuery {
   }
 
   public List<TimeRange> getUnavailableTimes(Collection<Event> events, MeetingRequest request){
-    //Gets mandatory attendees of meeting request.
+    //Get mandatory attendees of meeting request.
     Collection<String> attendees = request.getAttendees();
     //Iimes when at least one of the meeting request attendees is busy
     List<TimeRange> unavailableTimes = new ArrayList<TimeRange>();
     for (Event event : events){
-      //Gets required attendees for each event.
+      //Get required attendees for each event.
       Set<String> eventAttendees = event.getAttendees();
       /* If at least one of the meeting request attendees has to attend event,   * then that block of time becomes unavailable */
       for (String attendee : eventAttendees){
@@ -49,23 +49,23 @@ public final class FindMeetingQuery {
   }
 
   public Collection<TimeRange> getAvailableTimes(Collection<Event> events, MeetingRequest request, List<TimeRange> unavailableTimes){
-    //get duration of meeting request
+    //Get duration of meeting request.
     long meetingDuration = request.getDuration();
     
     Collection<TimeRange> availableTimes = new ArrayList<TimeRange>();
     int start = TimeRange.START_OF_DAY;
-    //find available times and add to collection
+    //Find available times and add to collection.
     for (TimeRange eventTime : unavailableTimes){
       if (!eventTime.contains(start) && eventTime.start() - start >= meetingDuration){
         availableTimes.add(TimeRange.fromStartEnd(start, eventTime.start(), false));
       }
-      //pointer should not point to nested event
+      //Pointer should not point to nested event.
       if (eventTime.end() > start){
         start = eventTime.end();
       }
     }
 
-    //account for end of day time slot
+    //Account for end of day time slot.
     if (TimeRange.END_OF_DAY - start >= meetingDuration){
       availableTimes.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
     }
