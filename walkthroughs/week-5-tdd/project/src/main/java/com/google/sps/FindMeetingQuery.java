@@ -23,29 +23,28 @@ import java.util.ArrayList;
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<String> mandatoryAttendees = request.getAttendees();
-    List<TimeRange> unavailableTimes;
-    Collection<TimeRange> availableTimes;
-    if (mandatoryAttendees.size() > 0){
-      //Get time ranges for which mandatory attendees are unavailable.
-      unavailableTimes = this.getUnavailableTimes(events, mandatoryAttendees);
-      //Get time ranges for which mandatory attendees are available.
-      availableTimes = this.getAvailableTimes(events, request, unavailableTimes);
-    } else {
-      unavailableTimes = new ArrayList<TimeRange>();
-      availableTimes = new ArrayList<TimeRange>();
-    }
-    
     Collection<String> allAttendees = new ArrayList<String>();
     allAttendees.addAll(request.getAttendees());
     allAttendees.addAll(request.getOptionalAttendees());
+    
     //Get time ranges for which all attendees (optional and mandatory) are unavailable.
     List<TimeRange> unavailableTimesWithOptional = this.getUnavailableTimes(events, allAttendees);
-    //Get time ranches for which all attendees are available.
+    //Get time ranges for which all attendees are available.
     Collection<TimeRange> availableTimesWithOptional = this.getAvailableTimes(events, request, unavailableTimesWithOptional);
+
+    /* If there is at least one time slot in which both mandatory and optional attendees can attend, * return such time slots */
     if (availableTimesWithOptional.size() > 0){
       return availableTimesWithOptional;
     } else {
-      return availableTimes;
+      if (mandatoryAttendees.size() > 0){
+        //Get time ranges for which mandatory attendees are unavailable.
+        List<TimeRange> unavailableTimes = this.getUnavailableTimes(events, mandatoryAttendees);
+        //Return time ranges for which mandatory attendees are available.
+        return this.getAvailableTimes(events, request, unavailableTimes);
+      } else {
+        //If there are no mandatory attendees, return empty ArrayList
+        return new ArrayList<TimeRange>();
+      }
     }
   }
 
